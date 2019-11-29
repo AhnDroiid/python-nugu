@@ -76,7 +76,7 @@ def answer(query):
 
     for backend_parameter in query_config[idx]['backend']:
         result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
-
+        print(result_dict)
     return result_dict
 
 

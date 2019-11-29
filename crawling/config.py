@@ -12,8 +12,8 @@ class Config:
         self.match_history = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/"
         self.champ_mastery = "https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/"
         self.opgg_user_url = 'https://www.op.gg/summoner/userName='
-        
-        reader = csv.reader(open('/home/dyros-vehicle/untitled/crawling/champion_list.csv', 'r'))
+
+        reader = csv.reader(open('./crawling/champion_list.csv', 'r'))
         self.champion_list = {}
         for row in reader:
             k, v, t = row
