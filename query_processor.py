@@ -1,11 +1,12 @@
 from crawling.riot_api import *
+import sys
 
 player_name = 'Hidden in bush'
 player_id, account_id = get_player_id(player_name)
 
 
 
-query_config ={
+query_config =[
 	{'action_name': 'answer.opponent.specific', 'utterance' : 'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS' , 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
      'function' : PlayerSummary, 'args': player_name
      },
@@ -57,9 +58,7 @@ query_config ={
 	# {'action_name': 'write.used_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL_RECORD', 'NAME_USED_SPELL'], 'backend': [],
     #  'function' :
     #  }
-}
-
-
+]
 
 def find_function_in_query(action):
     for index, dict in enumerate(query_config):
@@ -67,17 +66,17 @@ def find_function_in_query(action):
 
 def answer(query):
     actionName, utterance = query['actionName'], query['parameters']
+
     idx = find_function_in_query(actionName)
     return_from_function = query_config[idx]['function'](query_config[idx]['args'])
     result_dict = {'version': '2.0',
 		'resultCode': 'OK',
 		'output': {
 			}}
+
     for backend_parameter in query_config[idx]['backend']:
         result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
 
-    print(result_dict)
     return result_dict
-
 
 

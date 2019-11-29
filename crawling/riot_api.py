@@ -1,9 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
-from crawling.game import Game
-from crawling.config import Config
+from . import game
+from . import config
 
-config = Config()
+config = config.Config()
 API_KEY = config.api_key
 
 SUMMONER_NAME_URL = config.summoner_name_url
@@ -145,9 +145,9 @@ if __name__ == "__main__":
     print(PlayerSummary(player_name))
     try:
         current_game_info = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY).json()
-        current_game = Game(player_name, current_game_info)
+        current_game = game.Game(player_name, current_game_info)
     except Exception:
-        print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
+        print('{}is not in game.'.format(player_name))
         exit(-1)
 
 

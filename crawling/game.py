@@ -3,9 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import time
-from crawling.config import Config
-
-config = Config()
+from . import config
+config = config.Config()
 API_KEY = config.api_key
 
 SUMMONER_NAME_URL = config.summoner_name_url

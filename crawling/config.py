@@ -13,17 +13,17 @@ class Config:
         self.champ_mastery = "https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/"
         self.opgg_user_url = 'https://www.op.gg/summoner/userName='
         
-        reader = csv.reader(open('champion_list.csv', 'r'))
+        reader = csv.reader(open('/home/dyros-vehicle/untitled/crawling/champion_list.csv', 'r'))
         self.champion_list = {}
         for row in reader:
             k, v, t = row
             self.champion_list[k] = v
         
-        reader = csv.reader(open('spell_list.csv', 'r'))
-        self.spell_list = {}
-        for row in reader:
-            k, v, t = row
-            self.spell_list[k] = v
+        # reader = csv.reader(open('spell_list.csv', 'r'))
+        # self.spell_list = {}
+        # for row in reader:
+        #     k, v, t = row
+        #     self.spell_list[k] = v
 
 
         # reader = csv.reader(open('item_list.csv', 'r'))
