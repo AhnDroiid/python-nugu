@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e1dec74b-0b09-44be-87f2-ca2a8ae55f46" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawling/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawling/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawling/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawling/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawling/riot_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawling/riot_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawling/spell_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/crawling/spell_list.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/query_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/query_processor.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +106,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574991158292</updated>
       <workItem from="1574991160733" duration="2861000" />
-      <workItem from="1575026657004" duration="8232000" />
+      <workItem from="1575026657004" duration="8477000" />
     </task>
     <servers />
   </component>

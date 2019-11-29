@@ -6,12 +6,12 @@ player_id, account_id = get_player_id(player_name)
 
 
 query_config ={
-	{'action_name': 'answer.opponent.specific', 'utterance' : 'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS' , 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR']
+	{'action_name': 'answer.opponent.specific', 'utterance' : 'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS' , 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
      'function' : PlayerSummary, 'args': player_name
      },
-	{'action_name': 'answer.opponent.caution_champion', 'utterance': ['NAME_OPPONENT_CHAMPION_FOR_ANALYSIS'], 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR']
+	{'action_name': 'answer.opponent.caution_champion', 'utterance': ['NAME_OPPONENT_CHAMPION_FOR_ANALYSIS'], 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
      'function' : PlayerSummary, 'args': player_name
-     },
+     }
 
 	# {'action_name': 'answer.spell.specific_champion.specific_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL', 'NAME_SPELL'] , 'backend': ['REMAINING_TIME_OF_SPELL'],
     #  'function' :
