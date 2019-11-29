@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import time
-from config import Config
+from crawling.config import Config
 
 config = Config()
 API_KEY = config.api_key

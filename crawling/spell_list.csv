@@ -1,16 +1,16 @@
-50,OdysseyRevive
-52,OdysseyFlash
+50,OdysseyRevive, tt
+52,OdysseyFlash, tt
 11,Smite,강타
 7,Heal,회복
 14,Ignite,점화
 4,Flash,점멸
-32,Snowball
-30,PoroRecall
+32,Snowball, tt
+30,PoroRecall, tt
 12,Teleport,텔레포트
-31,PoroThrow
+31,PoroThrow, tt
 1,Boost,정화
 3,Exhaust,탈진
 21,Barrier,방어막
-13,Mana
-39,SnowURFSnowball_Mark
+13,Mana,기력회복
+39,SnowURFSnowball_Mark,눈덩이
 6,Haste,유체화
