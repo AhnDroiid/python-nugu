@@ -32,6 +32,7 @@ class Game:
             print(player['summonerName'])
             if player['summonerName'] == self.nugu_player:
                 print(player)
+
                 self.teamId = player['teamId']
 
         for player in self.participants:

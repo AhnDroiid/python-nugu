@@ -5,7 +5,7 @@ import csv
 class Config:
     def __init__(self):
 
-        self.api_key = 'RGAPI-880ae7e9-0de1-47f2-a1df-da1a0a9820d1'
+        self.api_key = 'RGAPI-b3c8dfc7-d89e-4f4d-9434-553201f58379'
         self.summoner_name_url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
         self.tier_url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/"
         self.current_game_url = "https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/"
