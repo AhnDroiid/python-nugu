@@ -20,7 +20,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/crawling" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1UGmA1OPf4DAhlGMDKc3KfLQlGi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -129,7 +129,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574991158292</updated>
       <workItem from="1574991160733" duration="2861000" />
-      <workItem from="1575026657004" duration="29346000" />
+      <workItem from="1575026657004" duration="30428000" />
     </task>
     <servers />
   </component>

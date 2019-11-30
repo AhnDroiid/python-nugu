@@ -29,6 +29,7 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
     current_game = kwargs['current_game']
     idx = -1
     for index, champs in enumerate(current_game.players_champion):
+        print(champs)
         if champ_name in champs:
             idx = index
     if idx == - 1: return {'OPPONENT_CHAMPION_TEAR': "error", 'OPPONENT_CHAMPION_WINNING_RATE': "error",
@@ -203,5 +204,5 @@ current_game_info = response.json()
 
 current_game = Game(player_name, current_game_info)
 print(current_game.players_champion)
-# args = {'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': '리산드라', 'current_game': current_game }
-# print(Specific_PlayerSummary(**args))
+args = {'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': '라이즈', 'current_game': current_game }
+print(Specific_PlayerSummary(**args))
