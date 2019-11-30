@@ -89,7 +89,7 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
 
 def ChamionSummary(champion_name, lane=''):
     champ_stats_url = config.get_champ_stat_url(champion_name)
-    print(champ_stats_url)
+    #print(champ_stats_url)
     search = requests.get(champ_stats_url)
     html = search.text
     champ_soup = BeautifulSoup(html, 'html.parser')
@@ -101,7 +101,7 @@ def ChamionSummary(champion_name, lane=''):
     champion_lanes_list = {}
     for i, j in zip(lanes, lane_rates):
         champion_lanes_list[i] = float(j[:-1])
-    print(champion_lanes_list)
+    #print(champion_lanes_list)
 
     # Get recommended spells
     spells = champ_soup.select(".champion-stats__list__item img.tip")

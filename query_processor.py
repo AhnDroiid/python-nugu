@@ -72,9 +72,9 @@ def answer(query, current_game):
         for keys in utterance.keys():
             args[keys] = query['action']['parameters'][keys]['value']
 
-    print(idx)
-    print(utterance)
-    print(args)
+    # print(idx)
+    # print(utterance)
+    # print(args)
 
     if idx == -1:
         return {'version': '2.0',
