@@ -70,7 +70,7 @@ def player_summary(player_name):
         user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
 
     return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_winning_rate,
-            'OPPONENT_CAUTION_CAUTION_CHAMPION'}
+            'OPPONENT_CAUTION_CAUTION_CHAMPION' : user_most_champs[0][0]}
 
 def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     player_name_list = kwargs['current_game'].players_name
