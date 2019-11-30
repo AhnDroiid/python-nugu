@@ -84,8 +84,10 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
 
     return_idx = result['OPPONENT_CHAMPION_WINNING_RATE'].index(max(result['OPPONENT_CHAMPION_WINNING_RATE']))
     champ_name = result['OPPONENT_CAUTION_CHAMPION'][return_idx]
-    for champs in config.champion_list:
-        if champ_name in champs:
+    #print(result)
+    #print(config.champion_list.values())
+    for champs in config.champion_list.values():
+        if champ_name in champs[0]:
             champ_name = champs[1]
     return {'OPPONENT_CHAMPION_TEAR': result['OPPONENT_CHAMPION_TEAR'][return_idx], 'OPPONENT_CHAMPION_WINNING_RATE': result['OPPONENT_CHAMPION_WINNING_RATE'][return_idx],
             'OPPONENT_CAUTION_CHAMPION': champ_name}
@@ -184,31 +186,29 @@ def ChamionSummary(champion_name, lane=''):
 
     return {'RECOMMENDED_CHAMPION': counter_list[0][0]}
 
-#
-# player_name = "feng jl xu chui"
-#
-# chamion_name = 'ekko'
-# champ_summary = ChamionSummary(chamion_name)
-# print(champ_summary)
-# # print(champ_data.find_all("span"))# print(champ_data.get("span")
-#
-# player_id, account_id = get_player_id(player_name)
-#
-# # print(player_id)
-# # print(account_id)
-# # r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
-# # print(r)
-#
-# # current game!
-#
-# response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
-# if response.status_code == 404:
-#     print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
-#     exit(-1)
-#
-# current_game_info = response.json()
-#
-# current_game = Game(player_name, current_game_info)
-# print(current_game.players_champion)
-# args = {'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': '라이즈', 'current_game': current_game }
-# print(Specific_PlayerSummary(**args))
+
+
+player_name = "rirls"
+
+chamion_name = 'ekko'
+champ_summary = ChamionSummary(chamion_name)
+player_id, account_id = get_player_id(player_name)
+
+# print(player_id)
+# print(account_id)
+# r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
+# print(r)
+
+# current game!
+
+response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
+if response.status_code == 404:
+    print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
+    exit(-1)
+
+current_game_info = response.json()
+
+current_game = Game(player_name, current_game_info)
+print(current_game.players_champion)
+args = {'NAME_OPPONENT_CHAMPION_FPONENT_CHAMPION_FOR_ANALYSIS': '라이즈', 'current_game': current_game }
+print(Total_PlayerSummary(**args))
