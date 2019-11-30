@@ -88,7 +88,7 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
         if champ_name in champs:
             champs_name = champs[1]
     return {'OPPONENT_CHAMPION_TEAR': result['OPPONENT_CHAMPION_TEAR'][return_idx], 'OPPONENT_CHAMPION_WINNING_RATE': result['OPPONENT_CHAMPION_WINNING_RATE'][return_idx],
-            'OPPONENT_CAUTION_CHAMPION': champs_name}
+            'OPPONENT_CAUTION_CHAMPION': champ_name}
 
     # return {'OPPONENT_CHAMPION_TEAR': 'grandmaster', 'OPPONENT_CHAMPION_WINNING_RATE': '56%',
     #         'OPPONENT_CAUTION_CHAMPION': 'jax'}
