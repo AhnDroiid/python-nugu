@@ -16,23 +16,26 @@ class Config:
         reader = csv.reader(open('./crawling/champion_list.csv', 'r'))
         self.champion_list = {}
         for row in reader:
+            if len(row) != 3: continue
             k, v, t = row
-            self.champion_list[k] = v
+            self.champion_list[k] = [v, t]
         
-        # reader = csv.reader(open('spell_list.csv', 'r'))
-        # self.spell_list = {}
-        # for row in reader:
-        #     k, v, t = row
-        #     self.spell_list[k] = v
+        reader = csv.reader(open('./crawling/spell_list.csv', 'r'))
+        self.spell_list = {}
+        for row in reader:
+            if len(row) != 3: continue
+            k, v, t = row
+            self.spell_list[k] = [v, t]
 
 
-        # reader = csv.reader(open('item_list.csv', 'r'))
-        # self.item_list = {}
-        # for row in reader:
-        #     k, v = row
-        #     self.item_list[k] = v
-        #
-        #
+        reader = csv.reader(open('./crawling/item_list.csv', 'r'))
+        self.item_list = {}
+        for row in reader:
+            if len(row) != 2: continue
+            k, v = row
+            self.item_list[k] = v
+
+
     def get_champ_stat_url(self, name):
         return 'https://www.op.gg/champion/{}/statistics/mid'.format(name)
 

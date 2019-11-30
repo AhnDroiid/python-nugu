@@ -1,62 +1,59 @@
 from crawling.riot_api import *
 import sys
 
-player_name = 'Hidden in bush'
-player_id, account_id = get_player_id(player_name)
-
 
 
 query_config =[
 	{'action_name': 'answer.opponent.specific', 'utterance' : ['NAME_OPPONENT_CHAMPION_FOR_ANALYSIS'] , 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
-     'function' : PlayerSummary, 'args': player_name
+     'function' : Specific_PlayerSummary
      },
 	{'action_name': 'answer.opponent.caution_champion', 'utterance': [], 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
-     'function' : PlayerSummary, 'args': player_name
+     'function' : Total_PlayerSummary
      }
-
+    #
 	# {'action_name': 'answer.spell.specific_champion.specific_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL', 'NAME_SPELL'] , 'backend': ['REMAINING_TIME_OF_SPELL'],
     #  'function' :
     #  },
     #
 	# {'action_name': 'answer.spell.specific_champion.wo_specific_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL', 'NAME_SPELL'], 'backend':['USED_SPELL_NAMES', 'REMAINING_TIMES'],
-    #  'function' :
+    #  'function' : ,'args':
     #  },
     #
 	# {'action_name': 'answer.spell.all', 'utterance': ['NAME_CHAMPION_FOR_SPELL', 'NAME_SPELL'], 'backend': ['OPPONENT_CHAMPION1', 'SEPLLS_CHAMPION1', 'REMAINING_TIME_CHAMPION1'],
-    #  'function' :
+    #  'function' :  ,'args':
     #  },
     #
 	# {'action_name': 'recommend_champion_lane', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': 'RECOMMENDED_CHAMPION',
-    #  'function' :
+    #  'function' : ,'args':
     #  },
     #
 	# {'action_name': 'recommend_champion_opponent', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': ['RECOMMENDED_CHAMPION'],
-    #  'function' :
+    #  'function' :   ,'args':
     #  },
     #
 	# {'action_name': 'recommend_champion_default', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': ['RECOMMENDED_CHAMPION'],
-    #  'function' :
+    #  'function' :   ,'args':
     #  },
     #
 	# {'action_name': 'recommend.item.specific_core', 'utterance': ['NAME_CHAMPION_FOR_ITEM', 'NAME_NUMBER_ITEM_CORE'], 'backend': ['RECOMMENDED_ITEM_1ST', 'RECOMMENDED_ITEM_2ST',
 	# 																															  'RECOMMENDED_ITEM_3ST', 'RECOMMENDED_ITEM_4ST',
 	# 																															  'RECOMMENDED_ITEM_5ST', 'RECOMMENDED_ITEM_6ST', 'RECOMMENDED_ITEM_SPECIFIC'],
-    #  'function' :
+    #  'function' :   ,'args':
     #  },
     #
 	# {'action_name': 'recommend.item.all', 'utterance':['NAME_CHAMPION_FOR_ITEM', 'NAME_NUMBER_ITEM_CORE'], 'backend': ['RECOMMENDED_ITEM_1ST', 'RECOMMENDED_ITEM_2ST',
 	# 																															  'RECOMMENDED_ITEM_3ST', 'RECOMMENDED_ITEM_4ST',
 	# 																															  'RECOMMENDED_ITEM_5ST', 'RECOMMENDED_ITEM_6ST',]},
 	# {'action_name': 'recommend.skill.specific', 'utterance':['NAME_CHAMPION', 'NAME_LEVEL'], 'backend': ['RECOMMENDED_SKILL_1ST', 'RECOMMENDED_SKILL_2ST', 'RECOMMENDED_SKILL_3ST', 'RECOMMENDED_SKILL_SPECIFIC'],
-    #  'function' :
+    #  'function' :  ,'args':
     #  },
     #
 	# {'action_name': 'recommend.skill.all', 'utterance': ['NAME_CHAMPION', 'NAME_LEVEL'], 'backend': ['RECOMMENDED_SKILL_1ST', 'RECOMMENDED_SKILL_2ST', 'RECOMMENDED_SKILL_3ST', 'RECOMMENDED_SKILL_SPECIFIC'],
-    #  'function' :
+    #  'function' :   ,'args':
     #  },
     #
 	# {'action_name': 'write.used_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL_RECORD', 'NAME_USED_SPELL'], 'backend': [],
-    #  'function' :
+    #  'function' :   ,'args':
     #  }
 ]
 
@@ -66,11 +63,18 @@ def find_function_in_query(action):
             return index
     return -1
 
-def answer(query):
+def answer(query, current_game):
     actionName, utterance = query['action']['actionName'], query['action']['parameters']
     idx = find_function_in_query(actionName)
+    args = {}
+    args['current_game'] = current_game
+    if len(utterance) != 0:
+        for keys in utterance.keys():
+            args[keys] = query['action']['parameters'][keys]['value']
+
     print(idx)
     print(utterance)
+    print(args)
 
     if idx == -1:
         return {'version': '2.0',
@@ -78,7 +82,7 @@ def answer(query):
 		'output': {
 			}}
 
-    return_from_function = query_config[idx]['function'](query_config[idx]['args'])
+    return_from_function = query_config[idx]['function'](args)
 
     result_dict = {'version': '2.0',
 		'resultCode': 'OK',
