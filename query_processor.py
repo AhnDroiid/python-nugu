@@ -7,11 +7,11 @@ player_id, account_id = get_player_id(player_name)
 
 
 query_config =[
-	{'action_name': 'answer.opponent.specific', 'utterance' : 'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS' , 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
-     'function' : PlayerSummary, 'args': player_name
+	{'action_name': 'answer.opponent', 'utterance' : ['NAME_OPPONENT_CHAMPION_FOR_ANALYSIS'] , 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
+     'function' : PlayerSummary, 'args': player_name, 'action_trigger': 'answer.opponent.specific'
      },
-	{'action_name': 'answer.opponent.caution_champion', 'utterance': ['NAME_OPPONENT_CHAMPION_FOR_ANALYSIS'], 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
-     'function' : PlayerSummary, 'args': player_name
+	{'action_name': 'answer.opponent', 'utterance': [], 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
+     'function' : PlayerSummary, 'args': player_name,  'action_trigger': 'answer.opponent.caution_champion'
      }
 
 	# {'action_name': 'answer.spell.specific_champion.specific_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL', 'NAME_SPELL'] , 'backend': ['REMAINING_TIME_OF_SPELL'],
@@ -60,15 +60,22 @@ query_config =[
     #  }
 ]
 
-def find_function_in_query(action):
+def find_function_in_query(utterance):
     for index, dict in enumerate(query_config):
-        if dict['action_name'] == action: return index
+
+        if len(dict['utterance']) == len(utterance.keys()):
+            flag = True
+            for param in utterance.keys():
+                if param not in dict['utterance']:
+                    flag = False
+            if flag :
+                return index
 
 def answer(query):
-    actionName, utterance = query['actionName'], query['parameters']
-
-    idx = find_function_in_query(actionName)
+    actionName, utterance = query['action']['actionName'], query['action']['parameters']
+    idx = find_function_in_query(utterance)
     return_from_function = query_config[idx]['function'](query_config[idx]['args'])
+
     result_dict = {'version': '2.0',
 		'resultCode': 'OK',
 		'output': {
@@ -76,7 +83,8 @@ def answer(query):
 
     for backend_parameter in query_config[idx]['backend']:
         result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
-        print(result_dict)
+    print(result_dict)
     return result_dict
 
-
+req = {'action': {'actionName': 'answer.opponent', 'parameters':{'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': {'type': 'NAME_CHAMPION', 'value': '애쉬'}}}}
+answer(req)
