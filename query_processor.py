@@ -82,7 +82,7 @@ def answer(query, current_game):
 		'output': {
 			}}
 
-    return_from_function = query_config[idx]['function'](args)
+    return_from_function = query_config[idx]['function'](**args)
 
     result_dict = {'version': '2.0',
 		'resultCode': 'OK',

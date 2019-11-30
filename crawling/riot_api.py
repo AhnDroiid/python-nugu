@@ -53,12 +53,30 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
     return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_winning_rate,
             'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
 
+def player_summary(player_name):
+    search = requests.get(OPGG_USER_URL + player_name)
+    html = search.text
+    user_soup = BeautifulSoup(html, 'html.parser')
+
+    raw_data = user_soup.find("meta", {"name": "description"}).get('content')
+    user_data = raw_data.split('/')
+
+    user_tier = user_data[1].split(' ')[1:-1]
+    user_winning_rate = user_data[2].split(' ')[-2]
+    user_most_champs_raw = user_data[3].split(',')[:3]
+    user_most_champs = []
+    for champ in user_most_champs_raw:
+        tmp = champ.replace(' ', '', 1)
+        user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
+
+    return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_winning_rate,
+            'OPPONENT_CAUTION_CAUTION_CHAMPION'}
 
 def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     player_name_list = kwargs['current_game'].players_name
     result = {'OPPONENT_CHAMPION_TEAR': [], 'OPPONENT_CHAMPION_WINNING_RATE': [], 'OPPONENT_CAUTION_CHAMPION': [] }
     for player in player_name_list:
-        spec = Specific_PlayerSummary(player)
+        spec = player_summary(player)
         result['OPPONENT_CHAMPION_TEAR'].append(spec['OPPONENT_CHAMPION_TEAR'])
         result['OPPONENT_CHAMPION_WINNING_RATE'].append(spec['OPPONENT_CHAMPION_WINNING_RATE'])
         result['OPPONENT_CAUTION_CHAMPION'].append(spec['OPPONENT_CAUTION_CHAMPION'])
