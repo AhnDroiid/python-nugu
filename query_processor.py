@@ -73,7 +73,9 @@ def find_function_in_query(utterance):
 
 def answer(query):
     actionName, utterance = query['action']['actionName'], query['action']['parameters']
-    idx = find_function_in_query(utterance)
+    idx = find_function_in_query(utterance
+    print(idx)
+    print(utterance)
     return_from_function = query_config[idx]['function'](query_config[idx]['args'])
 
     result_dict = {'version': '2.0',
@@ -87,4 +89,5 @@ def answer(query):
     return result_dict
 
 req = {'action': {'actionName': 'answer.opponent', 'parameters':{'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': {'type': 'NAME_CHAMPION', 'value': '애쉬'}}}}
-answer(req)
+req_2 = {'action': {'actionName': 'answer.opponent', 'parameters':{}}}
+answer(req_2)
