@@ -177,31 +177,31 @@ def ChamionSummary(champion_name, lane=''):
 
     return {'RECOMMENDED_CHAMPION': counter_list[0][0]}
 
-
-player_name = 'Hanabi1'
-
+#
+# player_name = 'Hanabi1'
+#
 # chamion_name = 'ekko'
 # champ_summary = ChamionSummary(chamion_name)
 # print(champ_summary)
 # # print(champ_data.find_all("span"))# print(champ_data.get("span")
-
-player_id, account_id = get_player_id(player_name)
-
+#
+# player_id, account_id = get_player_id(player_name)
+#
 # # print(player_id)
 # # print(account_id)
 # # r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
 # # print(r)
-
-## current game!
-
-response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
-if response.status_code == 404:
-    print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
-    exit(-1)
-
-current_game_info = response.json()
-
-current_game = Game(player_name, current_game_info)
-print(current_game.players_champion)
-args = {'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': '리산드라', 'current_game': current_game }
-print(Specific_PlayerSummary(**args))
+#
+# # current game!
+#
+# response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
+# if response.status_code == 404:
+#     print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
+#     exit(-1)
+#
+# current_game_info = response.json()
+#
+# current_game = Game(player_name, current_game_info)
+# print(current_game.players_champion)
+# args = {'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': '리산드라', 'current_game': current_game }
+# print(Specific_PlayerSummary(**args))
