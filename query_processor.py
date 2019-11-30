@@ -76,18 +76,18 @@ def answer(query):
     idx = find_function_in_query(utterance)
     print(idx)
     print(utterance)
-    return_from_function = query_config[idx]['function'](query_config[idx]['args'])
+    return_from_function = query_config[0]['function'](query_config[0]['args'])
 
     result_dict = {'version': '2.0',
 		'resultCode': 'OK',
 		'output': {
 			}}
 
-    for backend_parameter in query_config[idx]['backend']:
+    for backend_parameter in query_config[0]['backend']:
         result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
     print(result_dict)
     return result_dict
 
 req = {'action': {'actionName': 'answer.opponent', 'parameters':{'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': {'type': 'NAME_CHAMPION', 'value': '애쉬'}}}}
 req_2 = {'action': {'actionName': 'answer.opponent', 'parameters':{}}}
-answer(req_2)
+# answer(req_2)
