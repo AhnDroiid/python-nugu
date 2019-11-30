@@ -10,6 +10,7 @@ player_name = "SKT T1 Roach"
 player_id, account_id = get_player_id(player_name)
 chamion_name = 'ekko'
 champ_summary = ChamionSummary(chamion_name)
+config_dat = Config()
 
 
 ## current game!

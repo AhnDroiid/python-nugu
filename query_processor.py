@@ -9,8 +9,8 @@ query_config =[
      },
 	{'action_name': 'answer.opponent.caution_champion', 'utterance': [], 'backend': ['OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
      'function' : Total_PlayerSummary
-     }
-    #
+     },
+    # spell cooltime NO IMPLEMENTATION!!!!!
 	# {'action_name': 'answer.spell.specific_champion.specific_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL', 'NAME_SPELL'] , 'backend': ['REMAINING_TIME_OF_SPELL'],
     #  'function' :
     #  },
@@ -23,17 +23,17 @@ query_config =[
     #  'function' :  ,'args':
     #  },
     #
-	# {'action_name': 'recommend_champion_lane', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': 'RECOMMENDED_CHAMPION',
-    #  'function' : ,'args':
-    #  },
-    #
-	# {'action_name': 'recommend_champion_opponent', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': ['RECOMMENDED_CHAMPION'],
-    #  'function' :   ,'args':
-    #  },
-    #
-	# {'action_name': 'recommend_champion_default', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': ['RECOMMENDED_CHAMPION'],
-    #  'function' :   ,'args':
-    #  },
+	{'action_name': 'recommend_champion_lane', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': 'RECOMMENDED_CHAMPION',
+     'function' : RecommendChampionFromLane
+     },
+
+	{'action_name': 'recommend_champion_opponent', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': ['RECOMMENDED_CHAMPION'],
+     'function' :   RecommendChampionFromChampion
+     },
+
+	{'action_name': 'recommend_champion_default', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': ['RECOMMENDED_CHAMPION'],
+     'function' :   RecommendRandomChampion
+     },
     #
 	# {'action_name': 'recommend.item.specific_core', 'utterance': ['NAME_CHAMPION_FOR_ITEM', 'NAME_NUMBER_ITEM_CORE'], 'backend': ['RECOMMENDED_ITEM_1ST', 'RECOMMENDED_ITEM_2ST',
 	# 																															  'RECOMMENDED_ITEM_3ST', 'RECOMMENDED_ITEM_4ST',

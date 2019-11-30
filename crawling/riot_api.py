@@ -6,7 +6,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from .game import Game
 from .config import Config
-
+from random import randint
 config = Config()
 API_KEY = config.api_key
 
@@ -73,9 +73,9 @@ def player_summary(player_name):
     return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_winning_rate,
             'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
 
-def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
+def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion   ###NOT WORKING
     player_name_list = kwargs['current_game'].players_name
-    result = {'OPPONENT_CHAMPION_TEAR': [], 'OPPONENT_CHAMPION_WINNING_RATE':}
+    result = {'OPPONENT_CHAMPION_TEAR': [], 'OPPONENT_CHAMPION_WINNING_RATE': []}
     for player in player_name_list:
         spec = player_summary(player)
         result['OPPONENT_CHAMPION_TEAR'].append(spec['OPPONENT_CHAMPION_TEAR'])
@@ -91,12 +91,32 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     #         champ_name = champs[1]
     return {'OPPONENT_CHAMPION_TEAR': result['OPPONENT_CHAMPION_TEAR'][return_idx], 'OPPONENT_CHAMPION_WINNING_RATE': result['OPPONENT_CHAMPION_WINNING_RATE'][return_idx]}
 
-    # return {'OPPONENT_CHAMPION_TEAR': 'grandmaster', 'OPPONENT_CHAMPION_WINNING_RATE': '56%',
-    #         'OPPONENT_CAUTION_CHAMPION': 'jax'}
+def RecommendChampionFromChampion(**kwargs):
+    champion_name = kwargs['NAME_OPPONENT_CHAMPION']
+    # Get info. of counters
+    champ_stats_url = config.get_champ_stat_url(champion_name)
+    search = requests.get(champ_stats_url)
+    html = search.text
+    champ_soup = BeautifulSoup(html, 'html.parser')
+
+    get_counter_url = ".champion-stats-header-matchup__table.champion-stats-header-matchup__table--strong.tabItem "
+    counters = champ_soup.select(get_counter_url + "img")
+    counters_winning_rate = champ_soup.select(get_counter_url + "b")
+    counter_list = []
+    for i, j in zip(counters[0::2], counters_winning_rate):
+        counter_list.append([i.text.strip(), j.text])
+    #print(counter_list)
+    return {'RECOMMENDED_CHAMPION': counter_list[0][0]}
+
+def RecommendChampionFromLane(**kwargs):
+    lane_name = kwargs['NAME_LANE']
+    return {'RECOMMENDED_CHAMPION': list(config.LaneRecommendByChamp)[list(config.LaneRecommendByChamp.values()).index(lane_name)]}
+
+def RecommendRandomChampion(**kwargs):
+    return {'RECOMMENDED_CHAMPION': list(config.LaneRecommendByChamp)[randint(0, len(list(config.LaneRecommendByChamp)))]}
 
 def ChamionSummary(champion_name, lane=''):
     champ_stats_url = config.get_champ_stat_url(champion_name)
-    #print(champ_stats_url)
     search = requests.get(champ_stats_url)
     html = search.text
     champ_soup = BeautifulSoup(html, 'html.parser')
@@ -108,7 +128,7 @@ def ChamionSummary(champion_name, lane=''):
     champion_lanes_list = {}
     for i, j in zip(lanes, lane_rates):
         champion_lanes_list[i] = float(j[:-1])
-    #print(champion_lanes_list)
+    print(champion_lanes_list)
 
     # Get recommended spells
     spells = champ_soup.select(".champion-stats__list__item img.tip")
@@ -123,14 +143,14 @@ def ChamionSummary(champion_name, lane=''):
             tmp.append(spells_winning_rate[int(idx / 2) - 1].text)
             spell_recommend.append(tmp)
             tmp = []
-    # print(spell_recommend)
+    print(spell_recommend)
 
     # Get a skill-mastery [w, q, e]
     skill_mastery = champ_soup.select(".champion-stats__list__item span")
     skill_mastery_recommend = []
     for skill in skill_mastery:
         skill_mastery_recommend.append(skill.text)
-
+    print(skill_mastery_recommend)
     # Get a skill tree
     skill_tree = champ_soup.select(".champion-skill-build__table td")
     skill_tree_recommend = []
@@ -138,7 +158,7 @@ def ChamionSummary(champion_name, lane=''):
         skill_tree_recommend.append(skill.text.strip())
     while len(skill_tree_recommend) != 18:
         skill_tree_recommend.append(skill_tree_recommend[-1])
-
+    print(skill_tree_recommend)
     # Get a rune and winning rate
     runes = champ_soup.select(".champion-stats-summary-rune__name")
     rune_rates = champ_soup.select(".champion-stats-summary-rune__rate span")
@@ -147,7 +167,7 @@ def ChamionSummary(champion_name, lane=''):
     recommend_rune_list = []
     for rune, rune_rate in zip(runes, rune_rates):
         recommend_rune_list.append([rune.text, rune_rate])
-
+    print(recommend_rune_list)
     # Get a detailed tree
     rune_detail = champ_soup.select(".perk-page__item.perk-page__item--active img")
     rune_detail_winning_rate = champ_soup.select(".champion-overview__stats.champion-overview__stats--pick strong")
@@ -174,31 +194,25 @@ def ChamionSummary(champion_name, lane=''):
         tmp.append(item.select(".champion-overview__stats.champion-overview__stats--win.champion-overview__border")[
                        0].text.split('\n')[1])  # get item winning rate
         item_recommend_list.append(tmp)
-
-    # Get info. of counters
-    get_counter_url = ".champion-stats-header-matchup__table.champion-stats-header-matchup__table--strong.tabItem "
-    counters = champ_soup.select(get_counter_url + "img")
-    counters_winning_rate = champ_soup.select(get_counter_url + "b")
-    counter_list = []
-    for i, j in zip(counters[0::2], counters_winning_rate):
-        counter_list.append([i.text.strip(), j.text])
-
-    return {'RECOMMENDED_CHAMPION': counter_list[0][0]}
+    print(item_recommend_list)
 
 
+
+
+#print(RecommendChampionFromLane('Top'))
+print(RecommendChampionFromChampion('Ashe'))
+# player_name = "QQ123"
 #
-# player_name = "rirls"
-#
-# chamion_name = 'ekko'
+# chamion_name = 'Ashe'
 # champ_summary = ChamionSummary(chamion_name)
 # player_id, account_id = get_player_id(player_name)
-#
-# # print(player_id)
-# # print(account_id)
-# # r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
-# # print(r)
-#
-# # current game!
+
+# print(player_id)
+# print(account_id)
+# r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
+# print(r)
+
+# current game!
 #
 # response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
 # if response.status_code == 404:
@@ -208,6 +222,5 @@ def ChamionSummary(champion_name, lane=''):
 # current_game_info = response.json()
 #
 # current_game = Game(player_name, current_game_info)
-# print(current_game.players_champion)
-# args = {'NAME_OPPONENT_CHAMPION_FPONENT_CHAMPION_FOR_ANALYSIS': '라이즈', 'current_game': current_game }
-# print(Total_PlayerSummary(**args))
+#
+# print(current_game.players_spell)
