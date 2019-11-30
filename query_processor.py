@@ -73,7 +73,7 @@ def find_function_in_query(utterance):
 
 def answer(query):
     actionName, utterance = query['action']['actionName'], query['action']['parameters']
-    idx = find_function_in_query(utterance
+    idx = find_function_in_query(utterance)
     print(idx)
     print(utterance)
     return_from_function = query_config[idx]['function'](query_config[idx]['args'])
