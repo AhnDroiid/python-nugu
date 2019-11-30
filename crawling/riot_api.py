@@ -83,9 +83,15 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
         result['OPPONENT_CAUTION_CHAMPION'].append(spec['OPPONENT_CAUTION_CHAMPION'])
 
     return_idx = result['OPPONENT_CHAMPION_WINNING_RATE'].index(max(result['OPPONENT_CHAMPION_WINNING_RATE']))
+    champ_name = result['OPPONENT_CAUTION_CHAMPION'][return_idx]
+    for champs in config.champion_list:
+        if champ_name in champs:
+            champs_name = champs[1]
     return {'OPPONENT_CHAMPION_TEAR': result['OPPONENT_CHAMPION_TEAR'][return_idx], 'OPPONENT_CHAMPION_WINNING_RATE': result['OPPONENT_CHAMPION_WINNING_RATE'][return_idx],
-            'OPPONENT_CAUTION_CHAMPION': result['OPPONENT_CAUTION_CHAMPION'][return_idx]}
+            'OPPONENT_CAUTION_CHAMPION': champs_name}
 
+    # return {'OPPONENT_CHAMPION_TEAR': 'grandmaster', 'OPPONENT_CHAMPION_WINNING_RATE': '56%',
+    #         'OPPONENT_CAUTION_CHAMPION': 'jax'}
 
 def ChamionSummary(champion_name, lane=''):
     champ_stats_url = config.get_champ_stat_url(champion_name)
