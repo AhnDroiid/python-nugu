@@ -60,14 +60,9 @@ class Game:
             html = search.text
             user_soup = BeautifulSoup(html, 'html.parser')
             tier_data = user_soup.select('.TierRank')[0].text.strip()
-            user_most_champs = []
-
-            user_most_champs_raw = user_soup.select('.ChampionBox.Ranked div.ChampionInfo a')
-            for champ in user_most_champs_raw:
-                user_most_champs.append(champ.text.strip())
+            
             user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
-            print(user_most_champs)
-            self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate, 'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]})
+            self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate})
         
 
 
