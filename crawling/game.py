@@ -50,7 +50,7 @@ class Game:
         for index, item in enumerate(self.players_spell):
             spell_1 = item[0]
             spell_2 = item[1]
-            self.players_spell_used_time[self.players_champion[index]] = {spell_1: -1, spell_2: -1}
+            self.players_spell_used_time[self.players_champion[index][0]] = {spell_1[1]: -1, spell_2[1]: -1}
 
 
     def level_of_champion(self, idx):####
@@ -60,6 +60,7 @@ class Game:
                                     + str(self.participants[idx]['championId']) + '?api_key=' + API_KEY).json()
         champion_level = mastery_info['championLevel']
         champion_point = mastery_info['championPoints']
-        
+
 
         return champion_level, champion_point
+

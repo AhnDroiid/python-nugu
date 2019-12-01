@@ -41,39 +41,75 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
     search = requests.get(OPGG_USER_URL + player_name)
     html = search.text
     user_soup = BeautifulSoup(html, 'html.parser')
-
-    raw_data = user_soup.find("meta", {"name": "description"}).get('content')
-    user_data = raw_data.split('/')
-
-    user_tier = user_data[1].split(' ')[1:-1]
-    user_winning_rate = user_data[2].split(' ')[-2]
-    user_most_champs_raw = user_data[3].split(',')[:3]
+    tier_data = user_soup.select('.TierRank')[0].text.strip()
     user_most_champs = []
-    for champ in user_most_champs_raw:
-        tmp = champ.replace(' ', '', 1)
-        user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
+    if tier_data != 'Unranked':
+        raw_data = user_soup.find("meta", {"name": "description"}).get('content')
+        user_data = raw_data.split('/')
+        user_tier = user_data[1].split(' ')[1:-1]
+        # user_winning_rate = user_data[2].split(' ')[-2]
+        user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
+        user_most_champs_raw = user_data[3].split(',')[:3]
+        for champ in user_most_champs_raw:
+            tmp = champ.replace(' ', '', 1)
+            user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
+        return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate,
+                'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
+    else:
+        user_most_champs_raw = user_soup.select('.ChampionBox.Ranked div.ChampionInfo a')
+        user_most_champs_winning_rate = user_soup.select('.ChampionBox.Ranked div.Played')
+        for champ, winning_rate in zip(user_most_champs_raw, user_most_champs_winning_rate):
+            user_most_champs.append(champ.text.strip())
+        user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
+        return {'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate,
+                'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]}
 
-    return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_winning_rate,
-            'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
+    # search = requests.get(OPGG_USER_URL + player_name)
+    #
+    # html = search.text
+    # user_soup = BeautifulSoup(html, 'html.parser')
+    #
+    # raw_data = user_soup.find("meta", {"name": "description"}).get('content')
+    # user_data = raw_data.split('/')
+    #
+    # user_tier = user_data[1].split(' ')[1:-1]
+    # user_winning_rate = user_data[2].split(' ')[-2]
+    # user_most_champs_raw = user_data[3].split(',')[:3]
+    # user_most_champs = []
+    # for champ in user_most_champs_raw:
+    #     tmp = champ.replace(' ', '', 1)
+    #     user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
+    #
+    # return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_winning_rate,
+    #         'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
 
 def player_summary(player_name):
     search = requests.get(OPGG_USER_URL + player_name)
     html = search.text
     user_soup = BeautifulSoup(html, 'html.parser')
-
-    raw_data = user_soup.find("meta", {"name": "description"}).get('content')
-    user_data = raw_data.split('/')
-
-    user_tier = user_data[1].split(' ')[1:-1]
-    user_winning_rate = user_data[2].split(' ')[-2]
-    user_most_champs_raw = user_data[3].split(',')[:3]
+    tier_data = user_soup.select('.TierRank')[0].text.strip()
     user_most_champs = []
-    for champ in user_most_champs_raw:
-        tmp = champ.replace(' ', '', 1)
-        user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
+    if tier_data != 'Unranked':
+        raw_data = user_soup.find("meta", {"name": "description"}).get('content')
+        user_data = raw_data.split('/')
+        user_tier = user_data[1].split(' ')[1:-1]
+        # user_winning_rate = user_data[2].split(' ')[-2]
+        user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
+        user_most_champs_raw = user_data[3].split(',')[:3]
+        for champ in user_most_champs_raw:
+            tmp = champ.replace(' ', '', 1)
+            user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
+        return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate,
+                'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
+    else:
+        user_most_champs_raw = user_soup.select('.ChampionBox.Ranked div.ChampionInfo a')
+        user_most_champs_winning_rate = user_soup.select('.ChampionBox.Ranked div.Played')
+        for champ, winning_rate in zip(user_most_champs_raw, user_most_champs_winning_rate):
+            user_most_champs.append(champ.text.strip())
+        user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
+        return {'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate, 'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]}
 
-    return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_winning_rate,
-            'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
+
 
 def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion   ###NOT WORKING
     player_name_list = kwargs['current_game'].players_name
@@ -319,18 +355,18 @@ def ChamionSummary(champion_name, lane=''):
 # #print(RecommendChampionFromChampion('Ashe'))
 # # print(RecommendSkillAll(**args))
 #
-# player_name = "IgNar"
+# player_name = "딸기맛영일"
 #
 # chamion_name = 'Ashe'
 # champ_summary = ChamionSummary(chamion_name)
 # player_id, account_id = get_player_id(player_name)
-#
-# # print(player_id)
-# # print(account_id)
-# # r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
-# # print(r)
-#
-# # current game!
+
+# print(player_id)
+# print(account_id)
+# r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
+# print(r)
+
+# current game!
 #
 # response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
 # if response.status_code == 404:
@@ -341,5 +377,5 @@ def ChamionSummary(champion_name, lane=''):
 #
 # current_game = Game(player_name, current_game_info)
 # print(current_game.players_spell)
-#
-# # print(current_game.players_spell)
+
+# print(current_game.players_spell)
