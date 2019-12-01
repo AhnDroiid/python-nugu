@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import time
+import config
 
 config = config.Config()
 API_KEY = config.api_key
