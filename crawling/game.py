@@ -67,7 +67,7 @@ class Game:
                 user_most_champs.append(champ.text.strip())
             user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
         
-            players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate, 'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]})
+            self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate, 'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]})
         
 
 
