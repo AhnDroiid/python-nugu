@@ -7,7 +7,7 @@ import os
 class Config:
     def __init__(self):
 
-        self.api_key = 'RGAPI-01df4bff-1ac3-491f-b68f-b067c15a7e23'
+        self.api_key = 'RGAPI-5a786c3d-9ee9-4df5-8bdf-631243a7af38'
         self.summoner_name_url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
         self.tier_url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/"
         self.current_game_url = "https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/"
@@ -28,9 +28,9 @@ class Config:
         reader = csv.reader(open('./crawling/spell_list.csv', 'r'))
         self.spell_list = {}
         for row in reader:
-            if len(row) != 4: continue
-            k, v, t, c = row
-            self.spell_list[k] = [v, t, c]
+            if len(row) != 3: continue
+            k, v, t = row
+            self.spell_list[k] = [v, t]
 
 
         reader = csv.reader(open('./crawling/item_list.csv', 'r'))
