@@ -3,7 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import time
-from . import config
+
+from riot_api import player_summary
 config = config.Config()
 API_KEY = config.api_key
 
@@ -51,6 +52,24 @@ class Game:
             spell_1 = item[0]
             spell_2 = item[1]
             self.players_spell_used_time[self.players_champion[index][0]] = {spell_1[1]: -1, spell_2[1]: -1}
+
+#### player_summary: this code is crawled from OP.GG
+        self.players_summary = []
+        for player in self.players_name:
+            search = requests.get(OPGG_USER_URL + player)
+            html = search.text
+            user_soup = BeautifulSoup(html, 'html.parser')
+            tier_data = user_soup.select('.TierRank')[0].text.strip()
+            user_most_champs = []
+
+            user_most_champs_raw = user_soup.select('.ChampionBox.Ranked div.ChampionInfo a')
+            for champ, winning_rate in user_most_champs_raw:
+                user_most_champs.append(champ.text.strip())
+            user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
+        
+            players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate, 'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]})
+        
+
 
 
     def level_of_champion(self, idx):####

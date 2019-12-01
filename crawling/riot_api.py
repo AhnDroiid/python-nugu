@@ -112,22 +112,24 @@ def player_summary(player_name):
 
 
 def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion   ###NOT WORKING
-    player_name_list = kwargs['current_game'].players_name
-    result = {'OPPONENT_CHAMPION_TEAR': [], 'OPPONENT_CHAMPION_WINNING_RATE': []}
-    for player in player_name_list:
-        spec = player_summary(player)
-        result['OPPONENT_CHAMPION_TEAR'].append(spec['OPPONENT_CHAMPION_TEAR'])
-        result['OPPONENT_CHAMPION_WINNING_RATE'].append(spec['OPPONENT_CHAMPION_WINNING_RATE'])
+    currGame = kwargs['current_game']
+    temp_lst = [player_summary['OPPONENT_CHAMPION_WINNING_RATE'] for player_summary in currGame.players_summary]
+    return_idx = index(max(temp_lst))
+    return {'OPPONENT_CHAMPION_TEAR': currGame.player_summary[return_idx]['OPPONENT_CHAMPION_TEAR'],
+            'OPPONENT_CHAMPION_WINNING_RATE': currGame.player_summary[return_idx]['OPPONENT_CHAMPION_WINNING_RATE'],}
+    # result = {'OPPONENT_CHAMPION_TEAR': [], 'OPPONENT_CHAMPION_WINNING_RATE': []}
+    # for player in player_name_list:
+    #     spec = player_summary(player)
+    #     result['OPPONENT_CHAMPION_TEAR'].append(spec['OPPONENT_CHAMPION_TEAR'])
+    #     result['OPPONENT_CHAMPION_WINNING_RATE'].append(spec['OPPONENT_CHAMPION_WINNING_RATE'])
         #result['OPPONENT_CAUTION_CHAMPION'].append(spec['OPPONENT_CAUTION_CHAMPION'])
-
-    return_idx = result['OPPONENT_CHAMPION_WINNING_RATE'].index(max(result['OPPONENT_CHAMPION_WINNING_RATE']))
-    # champ_name = result['OPPONENT_CAUTION_CHAMPION'][return_idx]
+    
+    #  champ_name = result['OPPONENT_CAUTION_CHAMPION'][return_idx]
     # #print(result)
     # #print(config.champion_list.values())
     # for champs in config.champion_list.values():
     #     if champ_name in champs[0]:
     #         champ_name = champs[1]
-    return {'OPPONENT_CHAMPION_TEAR': result['OPPONENT_CHAMPION_TEAR'][return_idx], 'OPPONENT_CHAMPION_WINNING_RATE': result['OPPONENT_CHAMPION_WINNING_RATE'][return_idx]}
 
 def RecommendChampionFromChampion(**kwargs):
     champion_name = kwargs['NAME_OPPONENT_CHAMPION']
