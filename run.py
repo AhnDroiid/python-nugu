@@ -21,26 +21,33 @@ if response.status_code == 404:
 
 current_game_info = response.json()
 current_game = Game(player_name, current_game_info)
-#
-# @app.route('/', methods=['POST'])
-# def post():
-# 	global current_game
-# 	query = request.json
-#
-# 	print(query)
-# 	flag, response, current_game_new = answer(query, current_game)
-#
-# 	if flag == 1:
-# 		return json.dumps(response, ensure_ascii=False, indent=4)
-# 	else:
-# 		current_game = current_game_new
-# 		return json.dumps(response, ensure_ascii=False, indent=4)
-#
-# app.run(host='0.0.0.0', port=3389)
 
-query = {'action': {'actionName': 'write.used_spell', 'parameters' : {'NAME_CHAMPION_FOR_SPELL_RECORD' : {'value': 'Ashe'}, 'NAME_USED_SPELL': {'value': 'Ignite'}}}}
-flag, response, current_game_new = answer(query, current_game)
-print(query)
-print(response)
+
+@app.route('/', methods=['POST'])
+def post():
+	global current_game
+
+	query = request.json
+	response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
+	current_game_info_query = response.json()
+	if current_game.checkId(current_game_info_query['gameId']):
+		pass
+	else:
+		current_game = Game(player_name, current_game_info_query)
+	print(query)
+	flag, response, current_game_new = answer(query, current_game)
+
+	if flag == 1:
+		return json.dumps(response, ensure_ascii=False, indent=4)
+	else:
+		current_game = current_game_new
+		return json.dumps(response, ensure_ascii=False, indent=4)
+
+app.run(host='0.0.0.0', port=3389)
+
+# query = {'action': {'actionName': 'write.used_spell', 'parameters' : {'NAME_CHAMPION_FOR_SPELL_RECORD' : {'value': 'Ashe'}, 'NAME_USED_SPELL': {'value': 'Ignite'}}}}
+# flag, response, current_game_new = answer(query, current_game)
+# print(query)
+# print(response)
 
 
