@@ -28,9 +28,9 @@ class Config:
         reader = csv.reader(open('./crawling/spell_list.csv', 'r'))
         self.spell_list = {}
         for row in reader:
-            if len(row) != 3: continue
-            k, v, t = row
-            self.spell_list[k] = [v, t]
+            if len(row) != 4: continue
+            k, v, t, c= row
+            self.spell_list[k] = [v, t, c]
 
 
         reader = csv.reader(open('./crawling/item_list.csv', 'r'))
