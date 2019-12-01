@@ -19,18 +19,17 @@ if response.status_code == 404:
 	print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
 	#exit(-1)
 
-current_game_info = response.json()
-current_game = Game(player_name, current_game_info)
+
 
 
 @app.route('/', methods=['POST'])
 def post():
-	global current_game
-
+	#global current_game
+	current_game_info = response.json()
+	current_game = Game(player_name, current_game_info)
 	query = request.json
 	response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
 	current_game_info_query = response.json()
-	current_game.test()
 	# if current_game.checkId(current_game_info_query['gameId']):
 	# 	pass
 	# else:
