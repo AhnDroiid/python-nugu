@@ -30,7 +30,7 @@ class Game:
         self.players_champion = []
         self.players_spell = []
         self.players_spell_used_time = {}
-
+        self.currId = json_game_info['gameId']
 
         for player in self.participants:
             print(player['summonerName'])
@@ -65,7 +65,8 @@ class Game:
             self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate})
         
 
-
+    def checkId(self, id):
+        return self.currId == id
 
     def level_of_champion(self, idx):####
         print(CHAMP_MASTERY + str(self.players_id[idx]) + "/by-chamion/"
