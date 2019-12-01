@@ -41,7 +41,7 @@ query_config =[
 
 	{'action_name': 'recommend.item.all', 'utterance':['NAME_CHAMPION_FOR_ITEM', 'NAME_NUMBER_ITEM_CORE'], 'backend': ['RECOMMENDED_ITEM_1ST', 'RECOMMENDED_ITEM_2ST',
 																																  'RECOMMENDED_ITEM_3ST'],
-    'function' : RecommendItemAll()
+    'function' : RecommendItemAll
      },
 
 	{'action_name': 'recommend.skill.specific', 'utterance':['NAME_CHAMPION', 'NAME_LEVEL'], 'backend': ['RECOMMENDED_SKILL_1ST', 'RECOMMENDED_SKILL_2ST', 'RECOMMENDED_SKILL_3ST', 'RECOMMENDED_SKILL_SPECIFIC'],
