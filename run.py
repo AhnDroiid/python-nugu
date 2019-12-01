@@ -30,10 +30,11 @@ def post():
 	query = request.json
 	response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
 	current_game_info_query = response.json()
-	if current_game.checkId(current_game_info_query['gameId']):
-		pass
-	else:
-		current_game = Game(player_name, current_game_info_query)
+	current_game.test()
+	# if current_game.checkId(current_game_info_query['gameId']):
+	# 	pass
+	# else:
+	# 	current_game = Game(player_name, current_game_info_query)
 	print(query)
 	flag, response, current_game_new = answer(query, current_game)
 
