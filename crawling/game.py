@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import time
 
-from riot_api import player_summary
+from .riot_api import player_summary
 config = config.Config()
 API_KEY = config.api_key
 
