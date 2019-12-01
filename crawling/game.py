@@ -45,7 +45,7 @@ class Game:
                 self.players_level.append(requests.get(SUMMONER_NAME_URL + player['summonerName'] +'?api_key=' + API_KEY).json()['summonerLevel'])
                 self.players_rune_tree.append(player['perks']['perkIds'])
                 self.players_champion.append(config.champion_list[str(player['championId'])])
-                self.players_spell.append([ config.spell_list[str(player['spell1Id'])],
+                self.players_spell.append([config.spell_list[str(player['spell1Id'])],
                                                config.spell_list[str(player['spell2Id'])] ])
         for index, item in enumerate(self.players_spell):
             spell_1 = item[0]
