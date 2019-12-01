@@ -28,6 +28,9 @@ class Game:
         self.players_level = []
         self.players_champion = []
         self.players_spell = []
+        self.players_spell_used_time = {}
+
+
         for player in self.participants:
             print(player['summonerName'])
             if player['summonerName'] == self.nugu_player:
@@ -39,12 +42,15 @@ class Game:
             if player['teamId'] != self.teamId:
                 self.players_name.append(player['summonerName'])
                 self.players_id.append(player['summonerId'])
-
                 self.players_level.append(requests.get(SUMMONER_NAME_URL + player['summonerName'] +'?api_key=' + API_KEY).json()['summonerLevel'])
                 self.players_rune_tree.append(player['perks']['perkIds'])
                 self.players_champion.append(config.champion_list[str(player['championId'])])
                 self.players_spell.append([ config.spell_list[str(player['spell1Id'])],
                                                config.spell_list[str(player['spell2Id'])] ])
+        for index, item in enumerate(self.players_spell):
+            spell_1 = item[0]
+            spell_2 = item[1]
+            self.players_spell_used_time[self.players_champion[index]] = {spell_1: -1, spell_2: -1}
 
 
     def level_of_champion(self, idx):####

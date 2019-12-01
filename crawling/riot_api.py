@@ -7,6 +7,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from .game import Game
 from .config import Config
 from random import randint
+import time
+from datetime import datetime
 config = Config()
 API_KEY = config.api_key
 
@@ -115,6 +117,119 @@ def RecommendChampionFromLane(**kwargs):
 def RecommendRandomChampion(**kwargs):
     return {'RECOMMENDED_CHAMPION': list(config.LaneRecommendByChamp)[randint(0, len(list(config.LaneRecommendByChamp)))]}
 
+
+def RecommendSkillSpecific(**kwargs):
+
+    champion_name = kwargs['NAME_CHAMPION']
+    champion_level = int(kwargs['NAME_LEVEL'])
+
+    champ_stats_url = config.get_champ_stat_url(champion_name)
+    search = requests.get(champ_stats_url)
+    html = search.text
+    champ_soup = BeautifulSoup(html, 'html.parser')
+
+    # Get a skill tree
+    skill_tree = champ_soup.select(".champion-skill-build__table td")
+    skill_tree_recommend = []
+    for skill in skill_tree:
+        skill_tree_recommend.append(skill.text.strip())
+    while len(skill_tree_recommend) != 18:
+        skill_tree_recommend.append(skill_tree_recommend[-1])
+
+    return {'RECOMMENDED_SKILL_SPECIFIC': skill_tree_recommend[champion_level]}
+
+def RecommendSkillAll(**kwargs):
+
+    champion_name = kwargs['NAME_CHAMPION']
+    #champion_level = int(kwargs['NAME_LEVEL'])
+
+    champ_stats_url = config.get_champ_stat_url(champion_name)
+    search = requests.get(champ_stats_url)
+    html = search.text
+    champ_soup = BeautifulSoup(html, 'html.parser')
+
+    # Get a skill-mastery [w, q, e]
+    skill_mastery = champ_soup.select(".champion-stats__list__item span")
+    skill_mastery_recommend = []
+    for skill in skill_mastery:
+        skill_mastery_recommend.append(skill.text)
+    #print(skill_mastery_recommend)
+    return {'RECOMMENDED_SKILL_1ST': skill_mastery_recommend[0], 'RECOMMENDED_SKILL_2ST': skill_mastery_recommend[1], 'RECOMMENDED_SKILL_3ST': skill_mastery_recommend[2]}
+
+
+
+def RecommendItemSpecific(**kwargs):
+
+    champion_name = kwargs['NAME_CHAMPION_FOR_ITEM']
+    core_num = kwargs['NAME_NUMBER_ITEM_CORE']
+
+    champ_stats_url = config.get_champ_stat_url(champion_name)
+    search = requests.get(champ_stats_url)
+    html = search.text
+    champ_soup = BeautifulSoup(html, 'html.parser')
+
+    item_recommend_list = []
+    items = champ_soup.select(".champion-overview__row.champion-overview__row")
+    for item in items:
+        item_names = item.select(".champion-stats__list__item")
+        tmp = []
+        for item_name in item_names:
+            tmp.append(str(item_name).split('&gt')[1].split(';')[1][:-3])
+        tmp.append(item.select(".champion-overview__stats.champion-overview__stats--win.champion-overview__border")[
+                       0].text.split('\n')[1])  # get item winning rate
+
+        item_recommend_list.append(tmp)
+
+    return {'RECOMMENDED_ITEM_SPECIFIC': item_recommend_list[core_num + 1][0]}
+
+def RecordSpellTime(**kwargs):   # write_used_spell action,  RECORD TIME WHEN SPELL IS USED
+    current_game = kwargs['current_game']
+    champion_name = kwargs['NAME_CHAMPION_FOR_SPELL_RECORD']
+    spell_name = kwargs['NAME_USED_SPELL']
+    now_time = datetime.now()
+    now_time_in_second = now_time.hour * 3600 + now_time.minute * 60 + now_time.second
+    current_game.players_spell_used_time[champion_name][spell_name] = now_time_in_second
+
+def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
+    current_game = kwargs['current_game']
+    champion_name = kwargs['NAME_CHAMPION_FOR_SPELL']
+    asked_spell_name = kwargs['NAME_SPELL']
+
+    now_time = datetime.now()
+    now_time_in_second = now_time.hour * 3600 + now_time.minute * 60 + now_time.second
+
+    for spell in config.spell_list:
+        if asked_spell_name in spell:
+            cool_time = spell[2]
+            remain_time = cool_time - (now_time_in_second - current_game.players_spell_used_time[champion_name][asked_spell_name])
+
+            if remain_time > 0 :
+                return {'REMAINING_TIME_OF_SPELL': remain_time}
+            else: return {'REMAINING_TIME_OF_SPELL': 0}
+
+
+def RecommendItemAll(**kwargs):
+
+    champion_name = kwargs['NAME_CHAMPION_FOR_ITEM']
+    champ_stats_url = config.get_champ_stat_url(champion_name)
+    search = requests.get(champ_stats_url)
+    html = search.text
+    champ_soup = BeautifulSoup(html, 'html.parser')
+
+    item_recommend_list = []
+    items = champ_soup.select(".champion-overview__row.champion-overview__row")
+    for item in items:
+        item_names = item.select(".champion-stats__list__item")
+        tmp = []
+        for item_name in item_names:
+            tmp.append(str(item_name).split('&gt')[1].split(';')[1][:-3])
+        tmp.append(item.select(".champion-overview__stats.champion-overview__stats--win.champion-overview__border")[
+                       0].text.split('\n')[1])  # get item winning rate
+        item_recommend_list.append(tmp)
+    print(item_recommend_list)
+    return {'RECOMMENDED_ITEM_1ST': item_recommend_list[2][0], 'RECOMMENDED_ITEM_2ST': item_recommend_list[3][0]  ,'RECOMMENDED_ITEM_3ST':  item_recommend_list[4][0]}
+
+
 def ChamionSummary(champion_name, lane=''):
     champ_stats_url = config.get_champ_stat_url(champion_name)
     search = requests.get(champ_stats_url)
@@ -183,9 +298,9 @@ def ChamionSummary(champion_name, lane=''):
             rune_detailed_list.append(tmp)
             tmp = []
 
-    # Get a item tree and winning rate
-    items = champ_soup.select(".champion-overview__row.champion-overview__row")
+    #RecommendSkillSpecific Get a item tree and winning rate
     item_recommend_list = []
+    items = champ_soup.select(".champion-overview__row.champion-overview__row")
     for item in items:
         item_names = item.select(".champion-stats__list__item")
         tmp = []
@@ -197,15 +312,18 @@ def ChamionSummary(champion_name, lane=''):
     print(item_recommend_list)
 
 
-
+args = {'NAME_CHAMPION': 'Ashe'}
+RecommendItemAll(**args)
 
 #print(RecommendChampionFromLane('Top'))
-print(RecommendChampionFromChampion('Ashe'))
-# player_name = "QQ123"
-#
-# chamion_name = 'Ashe'
-# champ_summary = ChamionSummary(chamion_name)
-# player_id, account_id = get_player_id(player_name)
+#print(RecommendChampionFromChampion('Ashe'))
+# print(RecommendSkillAll(**args))
+
+player_name = "IgNar"
+
+chamion_name = 'Ashe'
+champ_summary = ChamionSummary(chamion_name)
+player_id, account_id = get_player_id(player_name)
 
 # print(player_id)
 # print(account_id)
@@ -213,14 +331,15 @@ print(RecommendChampionFromChampion('Ashe'))
 # print(r)
 
 # current game!
-#
-# response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
-# if response.status_code == 404:
-#     print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
-#     exit(-1)
-#
-# current_game_info = response.json()
-#
-# current_game = Game(player_name, current_game_info)
-#
+
+response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
+if response.status_code == 404:
+    print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
+    exit(-1)
+
+current_game_info = response.json()
+
+current_game = Game(player_name, current_game_info)
+print(current_game.players_spell)
+
 # print(current_game.players_spell)

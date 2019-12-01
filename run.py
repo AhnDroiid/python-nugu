@@ -22,14 +22,19 @@ if response.status_code == 404:
 current_game_info = response.json()
 current_game = Game(player_name, current_game_info)
 
-
 @app.route('/', methods=['POST'])
 def post():
+	global current_game
 	query = request.json
 
 	print(query)
-	return json.dumps(answer(query, current_game), ensure_ascii=False, indent=4)
+	flag, response, current_game_new = answer(query, current_game)
 
+	if flag == 1:
+		return json.dumps(response, ensure_ascii=False, indent=4)
+	else:
+		current_game = current_game_new
+		return json.dumps(response, ensure_ascii=False, indent=4)
 
 app.run(host='0.0.0.0', port=3389)
 
