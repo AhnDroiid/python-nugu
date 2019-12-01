@@ -6,7 +6,7 @@ from crawling.riot_api import *
 from urllib import parse
 app = Flask(__name__)
 
-player_name = "sugisugisugi"
+player_name = "아라가키 유이"
 player_name_url = parse.quote(player_name)
 player_id, account_id = get_player_id(player_name_url)
 #chamion_name = 'ekko'
