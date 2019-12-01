@@ -6,7 +6,7 @@ from crawling.riot_api import *
 from urllib import parse
 app = Flask(__name__)
 
-player_name = "아라가키 유이"
+player_name = "sugisugisugi"
 player_name_url = parse.quote(player_name)
 player_id, account_id = get_player_id(player_name_url)
 #chamion_name = 'ekko'
@@ -19,24 +19,21 @@ if response.status_code == 404:
 	print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
 	#exit(-1)
 
-
+current_game_info = response.json()
+current_game = Game(player_name, current_game_info)
 
 
 @app.route('/', methods=['POST'])
 def post():
-	#global current_game
+	global current_game
 
 	query = request.json
 	response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
-
-	current_game_info = response.json()
-	current_game = Game(player_name, current_game_info)
-
 	current_game_info_query = response.json()
-	# if current_game.checkId(current_game_info_query['gameId']):
-	# 	pass
-	# else:
-	# 	current_game = Game(player_name, current_game_info_query)
+	if current_game.checkId(current_game_info_query['gameId']):
+		pass
+	else:
+		current_game = Game(player_name, current_game_info_query)
 	print(query)
 	flag, response, current_game_new = answer(query, current_game)
 
