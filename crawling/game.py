@@ -63,7 +63,7 @@ class Game:
             user_most_champs = []
 
             user_most_champs_raw = user_soup.select('.ChampionBox.Ranked div.ChampionInfo a')
-            for champ, winning_rate in user_most_champs_raw:
+            for champ in user_most_champs_raw:
                 user_most_champs.append(champ.text.strip())
             user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
         
