@@ -64,7 +64,8 @@ class Game:
             user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
             self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate})
         
-
+    def test(self):
+        print("check")
     def checkId(self, id):
         return self.currId == id
 
