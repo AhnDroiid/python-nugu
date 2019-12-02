@@ -293,8 +293,10 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
     champion_index = list(current_game.players_spell_used_time.keys()).index(champion_name)
 
     for spell in config.spell_list.values():
-        if spell[0] == asked_spell_name
+        if spell[0] == asked_spell_name:
             cool_time = spell[2]
+
+
 
     remain_time = cool_time - (now_time_in_second - current_game.players_spell_used_time[champion_name][asked_spell_name])
 
