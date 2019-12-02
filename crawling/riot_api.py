@@ -172,7 +172,7 @@ def RecommendRandomChampion(**kwargs):
 
 def RecommendSkillSpecific(**kwargs):
 
-    champion_name = kwargs['NAME_CHAMPION']
+    champion_name = Kor2Eng(kwargs['NAME_CHAMPION'], 'champion')
     champion_level = int(kwargs['NAME_LEVEL'][:-2])
 
     champ_stats_url = config.get_champ_stat_url(champion_name)
@@ -215,8 +215,8 @@ def RecommendSkillAll(**kwargs):
 
 def RecommendItemSpecific(**kwargs):
 
-    champion_name = kwargs['NAME_CHAMPION_FOR_ITEM']
-    core_num = kwargs['NAME_NUMBER_ITEM_CORE']
+    champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_ITEM'] , 'champion')
+    core_num = kwargs['NAME_NUMBER_ITEM_CORE'][:-2]
 
     champ_stats_url = config.get_champ_stat_url(champion_name)
     search = requests.get(champ_stats_url)
@@ -239,7 +239,7 @@ def RecommendItemSpecific(**kwargs):
 
 def RecordSpellTime(**kwargs):   # write_used_spell action,  RECORD TIME WHEN SPELL IS USED
     current_game = kwargs['current_game']
-    champion_name = kwargs['NAME_CHAMPION_FOR_SPELL_RECORD']
+    champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_SPELL_RECORD'], 'champion')
     spell_name = kwargs['NAME_USED_SPELL']
     now_time = datetime.now()
     now_time_in_second = now_time.hour * 3600 + now_time.minute * 60 + now_time.second
@@ -247,7 +247,7 @@ def RecordSpellTime(**kwargs):   # write_used_spell action,  RECORD TIME WHEN SP
 
 def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
     current_game = kwargs['current_game']
-    champion_name = kwargs['NAME_CHAMPION_FOR_SPELL']
+    champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_SPELL'] , 'champion')
     asked_spell_name = kwargs['NAME_SPELL']
 
     now_time = datetime.now()
@@ -265,7 +265,7 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
 
 def RecommendItemAll(**kwargs):
 
-    champion_name = kwargs['NAME_CHAMPION_FOR_ITEM']
+    champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_ITEM'] , 'champion')
     champ_stats_url = config.get_champ_stat_url(champion_name)
     search = requests.get(champ_stats_url)
     html = search.text
