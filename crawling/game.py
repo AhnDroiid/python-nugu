@@ -52,7 +52,7 @@ class Game:
         for index, item in enumerate(self.players_spell):
             spell_1 = item[0]
             spell_2 = item[1]
-            self.players_spell_used_time[self.players_champion[index][0]] = {spell_1[1]: -1, spell_2[1]: -1}
+            self.players_spell_used_time[self.players_champion[index][0]] = {spell_1[0]: -1, spell_2[0]: -1}
 
 #### player_summary: this code is crawled from OP.GG
         self.players_summary = []
