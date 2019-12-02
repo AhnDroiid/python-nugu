@@ -6,7 +6,7 @@ from crawling.riot_api import *
 from urllib import parse
 app = Flask(__name__)
 
-player_name = "sugisugisugi"
+player_name = "Falco Lombardi"
 player_name_url = parse.quote(player_name)
 player_id, account_id = get_player_id(player_name_url)
 #chamion_name = 'ekko'
@@ -36,7 +36,7 @@ def post():
 		current_game = Game(player_name, current_game_info_query)
 	print(query)
 	flag, response, current_game_new = answer(query, current_game)
-
+	print(response)
 	if flag == 1:
 		return json.dumps(response, ensure_ascii=False, indent=4)
 	else:
