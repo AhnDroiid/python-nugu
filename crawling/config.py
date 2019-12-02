@@ -7,7 +7,7 @@ import os
 class Config:
     def __init__(self):
 
-        self.api_key = 'RGAPI-5a786c3d-9ee9-4df5-8bdf-631243a7af38'
+        self.api_key = 'RGAPI-0462c72d-3548-4ceb-8abd-04c1b7dfb0ff'
         self.summoner_name_url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
         self.tier_url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/"
         self.current_game_url = "https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/"
