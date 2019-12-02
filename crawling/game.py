@@ -67,8 +67,8 @@ class Game:
             user_recent_winning_rate = user_soup.find_all('div', attrs={'class': 'Text'})
             # print(user_recent_winning_rate)
             user_recent_winning_rate = [elem.text for elem in user_recent_winning_rate if '%' in elem.text]
-            print(user_recent_winning_rate)
-            self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate})
+            print(user_recent_winning_rate[0])
+            self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate[0]})
         
     def checkId(self, id):
         return self.currId == id
