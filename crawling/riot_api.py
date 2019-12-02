@@ -312,6 +312,40 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
     else: return {'REMAINING_TIME_OF_SPELL': 0}
 
 
+def AnswerSpellRemainingTimeAll(**kwargs):    # answer specific champion spell time
+    current_game = kwargs['current_game']
+    champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_SPELL'] , 'champion')
+
+
+    now_time = datetime.now()
+    now_time_in_second = now_time.hour * 3600 + now_time.minute * 60 + now_time.second
+
+    #champion_index = list(current_game.players_spell_used_time.keys()).index(champion_name)
+
+
+
+    for index, spell in enumerate(list(current_game.players_spell_used_time[champion_name].keys())):
+        for spell_name in config.spell_list.values():
+            if spell == spell_name:
+                cool_time = spell_name[2]
+        if index == 0:
+            remain_time_1 = int(cool_time) - int((now_time_in_second - current_game.players_spell_used_time[champion_name][spell]))
+        elif index == 1:
+            remain_time_2 = int(cool_time) - int((now_time_in_second - current_game.players_spell_used_time[champion_name][spell]))
+
+
+
+    #current_game.players_spell_used_time[champion_name][asked_spell_name] = now_time_in_second
+
+
+
+    return {'SPELL_TIME1' : list(current_game.players_spell_used_time[champion_name].keys())[0] , 'REMAINING_TIME1': max(0, remain_time_1),
+                'SPELL_TIME2': list(current_game.players_spell_used_time[champion_name].keys())[1], 'REMAINING_TIME2': max(0, remain_time_2)}
+
+
+
+
+
 def RecommendItemAll(**kwargs):
 
     champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_ITEM'] , 'champion')
