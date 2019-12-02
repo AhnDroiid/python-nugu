@@ -298,7 +298,7 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
 
 
 
-    remain_time = float(cool_time) - float((now_time_in_second - current_game.players_spell_used_time[champion_name][asked_spell_name]))
+    remain_time = int(cool_time) - int((now_time_in_second - current_game.players_spell_used_time[champion_name][asked_spell_name]))
 
 
     current_game.players_spell_used_time[champion_name][asked_spell_name] = now_time_in_second
@@ -307,7 +307,7 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
     print(remain_time)
 
     if remain_time > 0 :
-        return {'REMAINING_TIME_OF_SPELL': remain_time}
+        return {'REMAINING_TIME_OF_SPELL': str(remain_time)}
 
     else: return {'REMAINING_TIME_OF_SPELL': 0}
 
