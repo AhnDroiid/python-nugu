@@ -182,14 +182,17 @@ def RecommendChampionFromChampion(**kwargs):
     champ_soup = BeautifulSoup(html, 'html.parser')
 
     get_counter_url = ".champion-stats-header-matchup__table.champion-stats-header-matchup__table--strong.tabItem "
+    # counters = champ_soup.find_all('tr', attrs={'data-champion-id'})
     counters = champ_soup.select(get_counter_url + "img")
-    counters_winning_rate = champ_soup.select(get_counter_url + "b")
-    counter_list = []
-    for i, j in zip(counters[0::2], counters_winning_rate):
-        counter_list.append([i.text.strip(), j.text])
-    print(counter_list)
-    print(Eng2Kor(counter_list[0][0], 'champion'))
-    return {'RECOMMENDED_CHAMPION': Eng2Kor(counter_list[0][0], 'champion')}
+    most_counter = str(counters[0]).split('.png?')[0].split('/')[-1]
+    # print(abc)
+    # counters_winning_rate = champ_soup.select(get_counter_url + "b")
+    # counter_list = []
+    # for i, j in zip(counters[0::2], counters_winning_rate):
+    #     counter_list.append([i.text.strip(), j.text])
+    # print(counter_list)
+    # print(Eng2Kor(counter_list[0][0], 'champion'))
+    return {'RECOMMENDED_CHAMPION': Eng2Kor(most_counter, 'champion')}
 
 def RecommendChampionFromLane(**kwargs):
     lane_name = Kor2Eng(kwargs['NAME_LANE'], 'lane')
@@ -406,32 +409,32 @@ def ChamionSummary(champion_name, lane=''):
 
 #print(RecommendChampionFromChampion(**args))# print(RecommendSkillAll(**args))
 # #
-# player_name = "adad0"
-#
-#
-#
-# chamion_name = 'Ashe'
-# champ_summary = ChamionSummary(chamion_name)
-# player_id, account_id = get_player_id(player_name)
-#
-#
-#
-# # current game!
-#
-# response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
-# if response.status_code == 404:
-#     print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
-#     exit(-1)
-#
-# current_game_info = response.json()
-#
-# current_game = Game(player_name, current_game_info)
-#
-#
-#
-#
-# args = {'NAME_OPPONENT_CHAMPION': '카시오페아'}
-# RecommendChampionFromChampion(**args)
+player_name = "jgggggg"
+
+
+
+chamion_name = 'Ashe'
+champ_summary = ChamionSummary(chamion_name)
+player_id, account_id = get_player_id(player_name)
+
+
+
+# current game!
+
+response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
+if response.status_code == 404:
+    print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
+    exit(-1)
+
+current_game_info = response.json()
+
+current_game = Game(player_name, current_game_info)
+
+
+
+
+args = {'NAME_OPPONENT_CHAMPION': '갱플랭크'}
+RecommendChampionFromChampion(**args)
 
 
 # args = {'current_game' : current_game}
