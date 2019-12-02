@@ -90,14 +90,19 @@ def answer(query, current_game):
                    'output': {
                    }}
 
-    if actionName == 'write.used_spell':
-        current_game_new = RecordSpellTime(**args)
-        return 1, result_dict, current_game_new
-    else:
-        for backend_parameter in query_config[0]['backend']:
-            result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
-        print(result_dict)
-    return 0, result_dict, current_game
+    for backend_parameter in query_config[0]['backend']:
+        result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
+    print(result_dict)
+    return result_dict
+
+    # if actionName == 'write.used_spell':
+    #     current_game_new = RecordSpellTime(**args)
+    #     return 1, result_dict, current_game_new
+    # else:
+    #     for backend_parameter in query_config[0]['backend']:
+    #         result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
+    #     print(result_dict)
+    # return 0, result_dict, current_game
 
 req = {'action': {'actionName': 'answer.opponent', 'parameters':{'NAME_OPPONENT_CHAMPION_FOR_ANALYSIS': {'type': 'NAME_CHAMPION', 'value': '애쉬'}}}}
 req_2 = {'action': {'actionName': 'answer.opponent', 'parameters':{}}}

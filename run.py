@@ -28,20 +28,22 @@ def post():
 	global current_game
 
 	query = request.json
-	response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
-	current_game_info_query = response.json()
-	if current_game.checkId(current_game_info_query['gameId']):
-		pass
-	else:
-		current_game = Game(player_name, current_game_info_query)
+	#response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
+	#current_game_info_query = response.json()
+	# if current_game.checkId(current_game_info_query['gameId']):
+	# 	pass
+	# else:
+	# 	current_game = Game(player_name, current_game_info_query)
 	print(query)
-	flag, response, current_game_new = answer(query, current_game)
 
-	if flag == 1:
-		return json.dumps(response, ensure_ascii=False, indent=4)
-	else:
-		current_game = current_game_new
-		return json.dumps(response, ensure_ascii=False, indent=4)
+	return json.dumps(answer(query, current_game), ensure_ascii=False, indent=4)
+	#flag, response, current_game_new = answer(query, current_game)
+
+	# if flag == 1:
+	# 	return json.dumps(response, ensure_ascii=False, indent=4)
+	# else:
+	# 	current_game = current_game_new
+	# 	return json.dumps(response, ensure_ascii=False, indent=4)
 
 app.run(host='0.0.0.0', port=3389)
 
