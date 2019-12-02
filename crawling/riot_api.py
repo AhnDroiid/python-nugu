@@ -173,7 +173,7 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     #         champ_name = champs[1]
 
 def RecommendChampionFromChampion(**kwargs):
-    champion_name = kwargs['NAME_OPPONENT_CHAMPION']
+    champion_name = Kor2Eng(kwargs['NAME_OPPONENT_CHAMPION'], 'championo')
     # Get info. of counters
     champ_stats_url = config.get_champ_stat_url(champion_name)
     search = requests.get(champ_stats_url)
@@ -186,7 +186,7 @@ def RecommendChampionFromChampion(**kwargs):
     counter_list = []
     for i, j in zip(counters[0::2], counters_winning_rate):
         counter_list.append([i.text.strip(), j.text])
-    #print(counter_list)
+    print(counter_list)
     return {'RECOMMENDED_CHAMPION': Eng2Kor(counter_list[0][0], 'champion')}
 
 def RecommendChampionFromLane(**kwargs):
@@ -404,7 +404,8 @@ def ChamionSummary(champion_name, lane=''):
 #
 # #print(RecommendChampionFromLane('Top'))
 # #print(RecommendChampionFromChampion('Ashe'))
-# # print(RecommendSkillAll(**args))
+
+# print(RecommendChampionFromChampion(**args))# print(RecommendSkillAll(**args))
 # #
 # player_name = "adad0"
 #
