@@ -326,7 +326,7 @@ def AnswerSpellRemainingTimeAll(**kwargs):    # answer specific champion spell t
 
     for index, spell in enumerate(list(current_game.players_spell_used_time[champion_name].keys())):
         for spell_name in config.spell_list.values():
-            if spell == spell_name:
+            if spell == spell_name[0]:
                 cool_time = spell_name[2]
         if index == 0:
             remain_time_1 = int(cool_time) - int((now_time_in_second - current_game.players_spell_used_time[champion_name][spell]))
