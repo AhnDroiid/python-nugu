@@ -23,7 +23,7 @@ query_config =[
     #  'function' :
     #  },
 
-	{'action_name': 'recommend_champion_lane', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': 'RECOMMENDED_CHAMPION',
+	{'action_name': 'recommend_champion_lane', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': ['RECOMMENDED_CHAMPION'],
      'function' : RecommendChampionFromLane
      },
 
