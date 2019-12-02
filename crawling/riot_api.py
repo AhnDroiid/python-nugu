@@ -72,8 +72,7 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
         for champ in user_most_champs_raw:
             tmp = champ.replace(' ', '', 1)
             user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
-        return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate[0],
-                'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
+        return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate[0]}
     else:
         user_most_champs_raw = user_soup.select('.ChampionBox.Ranked div.ChampionInfo a')
         user_most_champs_winning_rate = user_soup.select('.ChampionBox.Ranked div.Played')
@@ -83,8 +82,7 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
         # print(user_recent_winning_rate)
         user_recent_winning_rate = [elem.text for elem in user_recent_winning_rate if '%' in elem.text]
         #user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
-        return {'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate[0],
-                'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]}
+        return {'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate[0]}
 
     # search = requests.get(OPGG_USER_URL + player_name)
     #
@@ -138,7 +136,8 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     temp_lst = [player_summary['OPPONENT_CHAMPION_WINNING_RATE'] for player_summary in currGame.players_summary]
     return_idx = temp_lst.index(max(temp_lst))
     return {'OPPONENT_CHAMPION_TEAR': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_TEAR'],
-            'OPPONENT_CHAMPION_WINNING_RATE': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_WINNING_RATE']}
+            'OPPONENT_CHAMPION_WINNING_RATE': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_WINNING_RATE'],
+            'OPPONENT_CAUTION_CHAMPION': currGame.players_champion[return_idx]}
     # result = {'OPPONENT_CHAMPION_TEAR': [], 'OPPONENT_CHAMPION_WINNING_RATE': []}
     # for player in player_name_list:
     #     spec = player_summary(player)
