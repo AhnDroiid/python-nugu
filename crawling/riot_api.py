@@ -20,6 +20,20 @@ CHAMP_MASTERY = config.champ_mastery
 OPGG_USER_URL = config.opgg_user_url
 
 
+
+
+def Kor2Eng(name, arg):
+    if arg == 'champion' :
+        for value in config.champion_list.values():
+            if name in value:
+                return value[0]
+
+    elif arg == 'spell':
+        for value in config.spell_list.values():
+            if name in value:
+                return value[0]
+
+
 def get_player_id(player_name):  # initialization function
     r = requests.get(SUMMONER_NAME_URL + player_name + '?api_key=' + API_KEY)
     return r.json()['id'], r.json()['accountId']
@@ -178,7 +192,7 @@ def RecommendSkillSpecific(**kwargs):
 
 def RecommendSkillAll(**kwargs):
 
-    champion_name = kwargs['NAME_CHAMPION']
+    champion_name = Kor2Eng(kwargs['NAME_CHAMPION'], 'champion')
     #champion_level = int(kwargs['NAME_LEVEL'])
 
     champ_stats_url = config.get_champ_stat_url(champion_name)
@@ -191,7 +205,10 @@ def RecommendSkillAll(**kwargs):
     skill_mastery_recommend = []
     for skill in skill_mastery:
         skill_mastery_recommend.append(skill.text)
-    #print(skill_mastery_recommend)
+    print(skill_mastery_recommend[0])
+    print(skill_mastery_recommend[1])
+    print(skill_mastery_recommend[2])
+
     return {'RECOMMENDED_SKILL_1ST': skill_mastery_recommend[0], 'RECOMMENDED_SKILL_2ST': skill_mastery_recommend[1], 'RECOMMENDED_SKILL_3ST': skill_mastery_recommend[2]}
 
 
@@ -349,9 +366,12 @@ def ChamionSummary(champion_name, lane=''):
         item_recommend_list.append(tmp)
     print(item_recommend_list)
 
-#
-# args = {'NAME_CHAMPION': 'Ashe'}
-# RecommendItemAll(**args)
+
+
+
+
+args = {'NAME_CHAMPION': ''}
+RecommendSkillAll(**args)
 #
 # #print(RecommendChampionFromLane('Top'))
 # #print(RecommendChampionFromChampion('Ashe'))
