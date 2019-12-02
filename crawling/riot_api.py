@@ -187,7 +187,7 @@ def RecommendSkillSpecific(**kwargs):
         skill_tree_recommend.append(skill.text.strip())
     while len(skill_tree_recommend) != 18:
         skill_tree_recommend.append(skill_tree_recommend[-1])
-
+    print(skill_tree_recommend[champion_level])
     return {'RECOMMENDED_SKILL_SPECIFIC': skill_tree_recommend[champion_level]}
 
 def RecommendSkillAll(**kwargs):
@@ -368,10 +368,11 @@ def ChamionSummary(champion_name, lane=''):
 
 
 
-
-
-# args = {'NAME_CHAMPION': ''}
-# RecommendSkillAll(**args)
+# champion_name = kwargs['NAME_CHAMPION']
+# champion_level = int(kwargs['NAME_LEVEL'][:-2])
+#
+args = {'NAME_CHAMPION': 'Ashe', 'NAME_LEVEL': '8레벨'}
+RecommendSkillSpecific(**args)
 #
 # #print(RecommendChampionFromLane('Top'))
 # #print(RecommendChampionFromChampion('Ashe'))
