@@ -173,7 +173,7 @@ def RecommendRandomChampion(**kwargs):
 def RecommendSkillSpecific(**kwargs):
 
     champion_name = kwargs['NAME_CHAMPION']
-    champion_level = int(kwargs['NAME_LEVEL'])
+    champion_level = int(kwargs['NAME_LEVEL'][:-2])
 
     champ_stats_url = config.get_champ_stat_url(champion_name)
     search = requests.get(champ_stats_url)
@@ -370,8 +370,8 @@ def ChamionSummary(champion_name, lane=''):
 
 
 
-args = {'NAME_CHAMPION': ''}
-RecommendSkillAll(**args)
+# args = {'NAME_CHAMPION': ''}
+# RecommendSkillAll(**args)
 #
 # #print(RecommendChampionFromLane('Top'))
 # #print(RecommendChampionFromChampion('Ashe'))
