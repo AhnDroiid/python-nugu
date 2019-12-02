@@ -284,6 +284,8 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
     champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_SPELL'] , 'champion')
     asked_spell_name = kwargs['NAME_SPELL']
 
+
+
     now_time = datetime.now()
     now_time_in_second = now_time.hour * 3600 + now_time.minute * 60 + now_time.second
 
