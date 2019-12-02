@@ -22,9 +22,10 @@ OPGG_USER_URL = config.opgg_user_url
 
 def Eng2Kor(name, arg):
     if arg == 'item':
-        for value in config.item_list.values():
-            if name in value:
-                return value[-1]
+        return config.item_list[name]
+        # for key in config.item_list.keys():
+        #     if name in key:
+        #         return val[-1]
 
 def Kor2Eng(name, arg):
     if arg == 'champion' :
