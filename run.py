@@ -36,7 +36,7 @@ def post():
 		current_game = Game(player_name, current_game_info_query)
 	print(query)
 	flag, response, current_game_new = answer(query, current_game)
-	print(response)
+
 	if flag == 1:
 		return json.dumps(response, ensure_ascii=False, indent=4)
 	else:

@@ -77,6 +77,7 @@ def answer(query, current_game):
     # print(args)
 
     if idx == -1:
+        print("idx is -1")
         return {'version': '2.0',
 		'resultCode': 'OK',
 		'output': {
