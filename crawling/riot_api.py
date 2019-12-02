@@ -290,15 +290,24 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
     now_time = datetime.now()
     now_time_in_second = now_time.hour * 3600 + now_time.minute * 60 + now_time.second
 
-    for spell in config.spell_list:
-        if asked_spell_name in spell:
-            #list(config.LaneRecommendByChamp)[list(config.LaneRecommendByChamp.values()).index(lane_name)][0]
-            cool_time = spell[2]
-            remain_time = cool_time - (now_time_in_second - current_game.players_spell_used_time[champion_name][asked_spell_name])
+    champion_index = list(current_game.players_spell_used_time.keys()).index(champion_name)
 
-            if remain_time > 0 :
-                return {'REMAINING_TIME_OF_SPELL': remain_time}
-            else: return {'REMAINING_TIME_OF_SPELL': 0}
+    for spell in config.spell_list.values():
+        if spell[0] == asked_spell_name
+            cool_time = spell[2]
+
+    remain_time = cool_time - (now_time_in_second - current_game.players_spell_used_time[champion_name][asked_spell_name])
+
+
+    current_game.players_spell_used_time[champion_name][asked_spell_name] = now_time_in_second
+
+    print(current_game.players_spell_used_time)
+    print(remain_time)
+
+    if remain_time > 0 :
+        return {'REMAINING_TIME_OF_SPELL': remain_time}
+
+    else: return {'REMAINING_TIME_OF_SPELL': 0}
 
 
 def RecommendItemAll(**kwargs):
