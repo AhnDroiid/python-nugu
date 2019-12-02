@@ -44,11 +44,11 @@ query_config =[
     'function' : RecommendItemAll
      },
 
-	{'action_name': 'recommend.skill.specific', 'utterance':['NAME_CHAMPION', 'NAME_LEVEL'], 'backend': ['RECOMMENDED_SKILL_1ST', 'RECOMMENDED_SKILL_2ST', 'RECOMMENDED_SKILL_3ST', 'RECOMMENDED_SKILL_SPECIFIC'],
+	{'action_name': 'recommend.skill.specific', 'utterance':['NAME_CHAMPION', 'NAME_LEVEL'], 'backend': ['RECOMMENDED_SKILL_SPECIFIC'],
      'function' : RecommendSkillSpecific
      },
 
-	{'action_name': 'recommend.skill.all', 'utterance': ['NAME_CHAMPION', 'NAME_LEVEL'], 'backend': ['RECOMMENDED_SKILL_1ST', 'RECOMMENDED_SKILL_2ST', 'RECOMMENDED_SKILL_3ST', 'RECOMMENDED_SKILL_SPECIFIC'],
+	{'action_name': 'recommend.skill.all', 'utterance': ['NAME_CHAMPION', 'NAME_LEVEL'], 'backend': ['RECOMMENDED_SKILL_1ST', 'RECOMMENDED_SKILL_2ST', 'RECOMMENDED_SKILL_3ST'],
      'function' : RecommendSkillAll
      },
 
