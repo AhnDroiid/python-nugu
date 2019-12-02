@@ -342,8 +342,8 @@ def AnswerSpellRemainingTimeAll(**kwargs):    # answer specific champion spell t
 
 
 
-    return {'SPELL_TIME1' : Eng2Kor(list(current_game.players_spell_used_time[champion_name].keys())[0], 'spell') , 'REMAINING_TIME1': max(0, remain_time_1),
-                'SPELL_TIME2': Eng2Kor(list(current_game.players_spell_used_time[champion_name].keys())[1], 'spell') , 'REMAINING_TIME2': max(0, remain_time_2)}
+    return {'SPELL_NAME1' : Eng2Kor(list(current_game.players_spell_used_time[champion_name].keys())[0], 'spell') , 'REMAINING_TIME1': max(0, remain_time_1),
+                'SPELL_NAME2': Eng2Kor(list(current_game.players_spell_used_time[champion_name].keys())[1], 'spell') , 'REMAINING_TIME2': max(0, remain_time_2)}
 
 
 
