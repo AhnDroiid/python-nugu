@@ -4,7 +4,7 @@ import sys
 
 
 query_config =[
-	{'action_name': 'answer.opponent.specific', 'utterance' : ['NAME_OPPONENT_CHAMPION_FOR_ANALYSIS'] , 'backend': [, 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
+	{'action_name': 'answer.opponent.specific', 'utterance' : ['NAME_OPPONENT_CHAMPION_FOR_ANALYSIS'] , 'backend': ['OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
      'function' : Specific_PlayerSummary
      },
 	{'action_name': 'answer.opponent.caution_champion', 'utterance': [], 'backend': ['OPPONENT_CAUTION_CHAMPION', 'OPPONENT_CHAMPION_WINNING_RATE', 'OPPONENT_CHAMPION_TEAR'],
