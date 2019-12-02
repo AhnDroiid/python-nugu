@@ -62,8 +62,13 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
         user_data = raw_data.split('/')
         user_tier = user_data[1].split(' ')[1:-1]
         # user_winning_rate = user_data[2].split(' ')[-2]
-        user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
+
+        user_recent_winning_rate = user_soup.find_all('div', attrs={'class': 'Text'})
+        # print(user_recent_winning_rate)
+        user_recent_winning_rate = [elem.text for elem in user_recent_winning_rate if '%' in elem.text]
+        #user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
         user_most_champs_raw = user_data[3].split(',')[:3]
+
         for champ in user_most_champs_raw:
             tmp = champ.replace(' ', '', 1)
             user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
@@ -74,7 +79,10 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
         user_most_champs_winning_rate = user_soup.select('.ChampionBox.Ranked div.Played')
         for champ, winning_rate in zip(user_most_champs_raw, user_most_champs_winning_rate):
             user_most_champs.append(champ.text.strip())
-        user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
+        user_recent_winning_rate = user_soup.find_all('div', attrs={'class': 'Text'})
+        # print(user_recent_winning_rate)
+        user_recent_winning_rate = [elem.text for elem in user_recent_winning_rate if '%' in elem.text]
+        #user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
         return {'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate,
                 'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]}
 
