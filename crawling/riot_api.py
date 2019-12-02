@@ -72,7 +72,7 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
         for champ in user_most_champs_raw:
             tmp = champ.replace(' ', '', 1)
             user_most_champs.append(tmp.replace(' -', '', 1).split(' '))
-        return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate,
+        return {'OPPONENT_CHAMPION_TEAR': user_tier[0], 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate[0],
                 'OPPONENT_CAUTION_CHAMPION': user_most_champs[0][0]}
     else:
         user_most_champs_raw = user_soup.select('.ChampionBox.Ranked div.ChampionInfo a')
@@ -83,7 +83,7 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
         # print(user_recent_winning_rate)
         user_recent_winning_rate = [elem.text for elem in user_recent_winning_rate if '%' in elem.text]
         #user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
-        return {'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate,
+        return {'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate[0],
                 'OPPONENT_CAUTION_CHAMPION': user_most_champs[0]}
 
     # search = requests.get(OPGG_USER_URL + player_name)
