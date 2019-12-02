@@ -30,7 +30,10 @@ def Eng2Kor(name, arg):
         for value in config.champion_list.values():
             if name in value:
                 return value[1]
-
+    if arg == "spell":
+        for value in config.spell_list.values():
+            if name in value:
+                return value[1]
 
 def Kor2Eng(name, arg):
     if arg == 'champion' :
@@ -339,8 +342,8 @@ def AnswerSpellRemainingTimeAll(**kwargs):    # answer specific champion spell t
 
 
 
-    return {'SPELL_TIME1' : list(current_game.players_spell_used_time[champion_name].keys())[0] , 'REMAINING_TIME1': max(0, remain_time_1),
-                'SPELL_TIME2': list(current_game.players_spell_used_time[champion_name].keys())[1], 'REMAINING_TIME2': max(0, remain_time_2)}
+    return {'SPELL_TIME1' : Eng2Kor(list(current_game.players_spell_used_time[champion_name].keys())[0], 'spell') , 'REMAINING_TIME1': max(0, remain_time_1),
+                'SPELL_TIME2': Eng2Kor(list(current_game.players_spell_used_time[champion_name].keys())[1], 'spell') , 'REMAINING_TIME2': max(0, remain_time_2)}
 
 
 
