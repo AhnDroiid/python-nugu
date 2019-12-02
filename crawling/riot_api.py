@@ -274,7 +274,7 @@ def RecommendItemSpecific(**kwargs):
 def RecordSpellTime(**kwargs):   # write_used_spell action,  RECORD TIME WHEN SPELL IS USED
     current_game = kwargs['current_game']
     champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_SPELL_RECORD'], 'champion')
-    spell_name = kwargs['NAME_USED_SPELL']
+    spell_name = Kor2Eng(kwargs['NAME_USED_SPELL'], 'spell')
     now_time = datetime.now()
     now_time_in_second = now_time.hour * 3600 + now_time.minute * 60 + now_time.second
     current_game.players_spell_used_time[champion_name][spell_name] = now_time_in_second
