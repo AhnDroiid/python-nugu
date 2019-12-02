@@ -405,33 +405,33 @@ def ChamionSummary(champion_name, lane=''):
 #print(RecommendChampionFromChampion('Ashe'))
 
 #print(RecommendChampionFromChampion(**args))# print(RecommendSkillAll(**args))
+# #
+# player_name = "adad0"
 #
-player_name = "adad0"
-
-
-
-chamion_name = 'Ashe'
-champ_summary = ChamionSummary(chamion_name)
-player_id, account_id = get_player_id(player_name)
-
-
-
-# current game!
-
-response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
-if response.status_code == 404:
-    print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
-    exit(-1)
-
-current_game_info = response.json()
-
-current_game = Game(player_name, current_game_info)
-
-
-
-
-args = {'NAME_OPPONENT_CHAMPION': '카시오페아'}
-RecommendChampionFromChampion(**args)
+#
+#
+# chamion_name = 'Ashe'
+# champ_summary = ChamionSummary(chamion_name)
+# player_id, account_id = get_player_id(player_name)
+#
+#
+#
+# # current game!
+#
+# response = requests.get(CURRENT_GAME_URL + player_id +'?api_key=' + API_KEY)
+# if response.status_code == 404:
+#     print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
+#     exit(-1)
+#
+# current_game_info = response.json()
+#
+# current_game = Game(player_name, current_game_info)
+#
+#
+#
+#
+# args = {'NAME_OPPONENT_CHAMPION': '카시오페아'}
+# RecommendChampionFromChampion(**args)
 
 
 # args = {'current_game' : current_game}
