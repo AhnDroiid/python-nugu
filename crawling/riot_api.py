@@ -20,7 +20,11 @@ CHAMP_MASTERY = config.champ_mastery
 OPGG_USER_URL = config.opgg_user_url
 
 
-
+def Eng2Kor(name, arg):
+    if arg == 'item':
+        for value in config.item_list.values():
+            if name in value:
+                return value[-1]
 
 def Kor2Eng(name, arg):
     if arg == 'champion' :
@@ -243,7 +247,8 @@ def RecommendItemSpecific(**kwargs):
 
         item_recommend_list.append(tmp)
 
-    return {'RECOMMENDED_ITEM_SPECIFIC': item_recommend_list[core_num + 1][0]}
+
+    return {'RECOMMENDED_ITEM_SPECIFIC': Eng2Kor(item_recommend_list[2][core_num - 1], 'item')}
 
 def RecordSpellTime(**kwargs):   # write_used_spell action,  RECORD TIME WHEN SPELL IS USED
     current_game = kwargs['current_game']
@@ -290,7 +295,7 @@ def RecommendItemAll(**kwargs):
                        0].text.split('\n')[1])  # get item winning rate
         item_recommend_list.append(tmp)
     print(item_recommend_list)
-    return {'RECOMMENDED_ITEM_1ST': item_recommend_list[2][0], 'RECOMMENDED_ITEM_2ST': item_recommend_list[3][0]  ,'RECOMMENDED_ITEM_3ST':  item_recommend_list[4][0]}
+    return {'RECOMMENDED_ITEM_1ST': Eng2Kor(item_recommend_list[2][0], 'item'), 'RECOMMENDED_ITEM_2ST': Eng2Kor(item_recommend_list[2][1], 'item'),'RECOMMENDED_ITEM_3ST':  Eng2Kor(item_recommend_list[2][2], 'item')}
 
 
 def ChamionSummary(champion_name, lane=''):
