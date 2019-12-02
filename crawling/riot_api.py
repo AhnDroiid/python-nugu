@@ -196,7 +196,8 @@ def RecommendChampionFromChampion(**kwargs):
 
 def RecommendChampionFromLane(**kwargs):
     lane_name = Kor2Eng(kwargs['NAME_LANE'], 'lane')
-    return {'RECOMMENDED_CHAMPION': Eng2Kor(list(config.LaneRecommendByChamp)[list(config.LaneRecommendByChamp.values()).index(lane_name)][0], 'champion')}
+    lane_index = list(config.LaneRecommendByChamp.values()).index(lane_name)
+    return {'RECOMMENDED_CHAMPION': Eng2Kor(list(config.LaneRecommendByChamp.keys())[lane_index], 'champion')}
 
 def RecommendRandomChampion(**kwargs):
     return {'RECOMMENDED_CHAMPION': list(((config.champion_list).values()))[randint(0, len(list(config.champion_list)))][1]}
@@ -288,6 +289,7 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
 
     for spell in config.spell_list:
         if asked_spell_name in spell:
+            #list(config.LaneRecommendByChamp)[list(config.LaneRecommendByChamp.values()).index(lane_name)][0]
             cool_time = spell[2]
             remain_time = cool_time - (now_time_in_second - current_game.players_spell_used_time[champion_name][asked_spell_name])
 
@@ -440,3 +442,5 @@ def ChamionSummary(champion_name, lane=''):
 # args = {'current_game' : current_game}
 # Total_PlayerSummary(**args)
 
+# args = {'NAME_LANE': '탑'}
+# print(RecommendChampionFromLane(**args))
