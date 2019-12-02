@@ -173,7 +173,7 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     #         champ_name = champs[1]
 
 def RecommendChampionFromChampion(**kwargs):
-    champion_name = Kor2Eng(kwargs['NAME_OPPONENT_CHAMPION'], 'championo')
+    champion_name = Kor2Eng(kwargs['NAME_OPPONENT_CHAMPION'], 'champion')
     # Get info. of counters
     champ_stats_url = config.get_champ_stat_url(champion_name)
     search = requests.get(champ_stats_url)
