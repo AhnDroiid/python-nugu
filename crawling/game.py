@@ -31,12 +31,13 @@ class Game:
         self.players_spell = []
         self.players_spell_used_time = {}
         self.currId = json_game_info['gameId']
-
+        self.teamId = None
         for player in self.participants:
-            print(player['summonerName'])
-            if player['summonerName'] == self.nugu_player:
+            # print(type(player['summonerName']))
+            # print(type(self.nugu_player.strip()))
+            if player['summonerName'] == self.nugu_player.strip():
                 print(player)
-
+                print(player['teamId'])
                 self.teamId = player['teamId']
 
         for player in self.participants:
@@ -55,13 +56,18 @@ class Game:
 
 #### player_summary: this code is crawled from OP.GG
         self.players_summary = []
+        print(self.players_name)
         for player in self.players_name:
             search = requests.get(OPGG_USER_URL + player)
             html = search.text
             user_soup = BeautifulSoup(html, 'html.parser')
             tier_data = user_soup.select('.TierRank')[0].text.strip()
             
-            user_recent_winning_rate = user_soup.select('.WinRatioGraph div.Text')[0].text
+            # user_recent_winning_rate = user_soup.select('.WinRatioGraph div.WinRatioGraph-summary div.Text')
+            user_recent_winning_rate = user_soup.find_all('div', attrs={'class': 'Text'})
+            # print(user_recent_winning_rate)
+            user_recent_winning_rate = [elem.text for elem in user_recent_winning_rate if '%' in elem.text]
+            print(user_recent_winning_rate)
             self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate})
         
     def checkId(self, id):

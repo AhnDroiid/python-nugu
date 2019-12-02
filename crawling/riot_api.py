@@ -356,17 +356,17 @@ def ChamionSummary(champion_name, lane=''):
 # #print(RecommendChampionFromLane('Top'))
 # #print(RecommendChampionFromChampion('Ashe'))
 # # print(RecommendSkillAll(**args))
-#
-# player_name = "Falco Lombardi"
+
+# player_name = " Falco Lombardi"
 #
 # chamion_name = 'Ashe'
 # champ_summary = ChamionSummary(chamion_name)
 # player_id, account_id = get_player_id(player_name)
 #
-# print(player_id)
-# print(account_id)
-# r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
-# print(r)
+# # print(player_id)
+# # print(account_id)
+# # r = requests.get(MATCH_HISTORY + account_id + '?api_key=' + API_KEY).json()
+# # print(r)
 #
 # # current game!
 #
