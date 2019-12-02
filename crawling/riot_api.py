@@ -26,6 +26,11 @@ def Eng2Kor(name, arg):
         # for key in config.item_list.keys():
         #     if name in key:
         #         return val[-1]
+    if arg == 'champion':
+        for value in config.champion_list.values():
+            if name in value:
+                return value[1]
+
 
 def Kor2Eng(name, arg):
     if arg == 'champion' :
@@ -37,7 +42,16 @@ def Kor2Eng(name, arg):
         for value in config.spell_list.values():
             if name in value:
                 return value[0]
-
+    elif arg == "lane":
+        if name == "탑":
+            return "Top"
+        elif name == "원딜":
+            return "Bottom"
+        elif name == "서폿":
+            return "Support"
+        elif name == "미드":
+            return "Middle"
+        else: return "Jungle"
 
 def get_player_id(player_name):  # initialization function
     r = requests.get(SUMMONER_NAME_URL + player_name + '?api_key=' + API_KEY)
@@ -173,14 +187,14 @@ def RecommendChampionFromChampion(**kwargs):
     for i, j in zip(counters[0::2], counters_winning_rate):
         counter_list.append([i.text.strip(), j.text])
     #print(counter_list)
-    return {'RECOMMENDED_CHAMPION': counter_list[0][0]}
+    return {'RECOMMENDED_CHAMPION': Eng2Kor(counter_list[0][0], 'champion')}
 
 def RecommendChampionFromLane(**kwargs):
-    lane_name = kwargs['NAME_LANE']
-    return {'RECOMMENDED_CHAMPION': list(config.LaneRecommendByChamp)[list(config.LaneRecommendByChamp.values()).index(lane_name)]}
+    lane_name = Kor2Eng(kwargs['NAME_LANE'], 'lane')
+    return {'RECOMMENDED_CHAMPION': Eng2Kor(list(config.LaneRecommendByChamp)[list(config.LaneRecommendByChamp.values()).index(lane_name)][0], 'champion')}
 
 def RecommendRandomChampion(**kwargs):
-    return {'RECOMMENDED_CHAMPION': list(config.LaneRecommendByChamp)[randint(0, len(list(config.LaneRecommendByChamp)))]}
+    return {'RECOMMENDED_CHAMPION': Eng2Kor(list(config.LaneRecommendByChamp)[randint(0, len(list(config.LaneRecommendByChamp)))][0], 'champion')}
 
 
 def RecommendSkillSpecific(**kwargs):
