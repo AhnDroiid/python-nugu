@@ -371,8 +371,8 @@ def ChamionSummary(champion_name, lane=''):
 # champion_name = kwargs['NAME_CHAMPION']
 # champion_level = int(kwargs['NAME_LEVEL'][:-2])
 #
-args = {'NAME_CHAMPION': 'Ashe', 'NAME_LEVEL': '8레벨'}
-RecommendSkillSpecific(**args)
+# args = {'NAME_CHAMPION': 'Ashe', 'NAME_LEVEL': '8레벨'}
+# RecommendSkillSpecific(**args)
 #
 # #print(RecommendChampionFromLane('Top'))
 # #print(RecommendChampionFromChampion('Ashe'))
