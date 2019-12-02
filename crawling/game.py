@@ -36,8 +36,8 @@ class Game:
             # print(type(player['summonerName']))
             # print(type(self.nugu_player.strip()))
             if player['summonerName'] == self.nugu_player.strip():
-                print(player)
-                print(player['teamId'])
+                # print(player)
+                # print(player['teamId'])
                 self.teamId = player['teamId']
 
         for player in self.participants:
@@ -56,7 +56,7 @@ class Game:
 
 #### player_summary: this code is crawled from OP.GG
         self.players_summary = []
-        print(self.players_name)
+        # print(self.players_name)
         for player in self.players_name:
             search = requests.get(OPGG_USER_URL + player)
             html = search.text
@@ -67,15 +67,15 @@ class Game:
             user_recent_winning_rate = user_soup.find_all('div', attrs={'class': 'Text'})
             # print(user_recent_winning_rate)
             user_recent_winning_rate = [elem.text for elem in user_recent_winning_rate if '%' in elem.text]
-            print(user_recent_winning_rate[0])
+            # print(user_recent_winning_rate[0])
             self.players_summary.append({'OPPONENT_CHAMPION_TEAR': tier_data, 'OPPONENT_CHAMPION_WINNING_RATE': user_recent_winning_rate[0]})
         
     def checkId(self, id):
         return self.currId == id
 
     def level_of_champion(self, idx):####
-        print(CHAMP_MASTERY + str(self.players_id[idx]) + "/by-chamion/"
-                                    + str(self.participants[idx]['championId']) + '?api_key=' + API_KEY)
+        # print(CHAMP_MASTERY + str(self.players_id[idx]) + "/by-chamion/"
+        #                             + str(self.participants[idx]['championId']) + '?api_key=' + API_KEY)
         mastery_info = requests.get(CHAMP_MASTERY + str(self.players_id[idx]) + "/by-champion/"
                                     + str(self.participants[idx]['championId']) + '?api_key=' + API_KEY).json()
         champion_level = mastery_info['championLevel']

@@ -67,7 +67,7 @@ def Specific_PlayerSummary(**kwargs):  # answer.opponent.specific
     current_game = kwargs['current_game']
     idx = -1
     for index, champs in enumerate(current_game.players_champion):
-        print(champs)
+        # print(champs)
         if champ_name in champs:
             idx = index
     if idx == - 1: return {'OPPONENT_CHAMPION_TEAR': "error", 'OPPONENT_CHAMPION_WINNING_RATE': "error",
@@ -157,7 +157,7 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     currGame = kwargs['current_game']
     temp_lst = [player_summary['OPPONENT_CHAMPION_WINNING_RATE'] for player_summary in currGame.players_summary]
     return_idx = temp_lst.index(max(temp_lst))
-    print(currGame.players_champion)
+    # print(currGame.players_champion)
     return {'OPPONENT_CHAMPION_TEAR': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_TEAR'],
             'OPPONENT_CHAMPION_WINNING_RATE': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_WINNING_RATE'],
             'OPPONENT_CAUTION_CHAMPION': currGame.players_champion[return_idx][1]}
@@ -177,7 +177,7 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
 
 def RecommendChampionFromChampion(**kwargs):
     champion_name = Kor2Eng(kwargs['NAME_OPPONENT_CHAMPION'], 'champion')
-    print(champion_name)
+    # print(champion_name)
     # Get info. of counters
     champ_stats_url = config.get_champ_stat_url(champion_name)
     search = requests.get(champ_stats_url)
@@ -223,7 +223,7 @@ def RecommendSkillSpecific(**kwargs):
         skill_tree_recommend.append(skill.text.strip())
     while len(skill_tree_recommend) != 18:
         skill_tree_recommend.append(skill_tree_recommend[-1])
-    print(skill_tree_recommend[champion_level])
+    # print(skill_tree_recommend[champion_level])
     return {'RECOMMENDED_SKILL_SPECIFIC': skill_tree_recommend[champion_level]}
 
 def RecommendSkillAll(**kwargs):
@@ -241,9 +241,9 @@ def RecommendSkillAll(**kwargs):
     skill_mastery_recommend = []
     for skill in skill_mastery:
         skill_mastery_recommend.append(skill.text)
-    print(skill_mastery_recommend[0])
-    print(skill_mastery_recommend[1])
-    print(skill_mastery_recommend[2])
+    # print(skill_mastery_recommend[0])
+    # print(skill_mastery_recommend[1])
+    # print(skill_mastery_recommend[2])
 
     return {'RECOMMENDED_SKILL_1ST': skill_mastery_recommend[0], 'RECOMMENDED_SKILL_2ST': skill_mastery_recommend[1], 'RECOMMENDED_SKILL_3ST': skill_mastery_recommend[2]}
 
@@ -306,8 +306,8 @@ def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
 
     current_game.players_spell_used_time[champion_name][asked_spell_name] = now_time_in_second
 
-    print(current_game.players_spell_used_time)
-    print(remain_time)
+    # print(current_game.players_spell_used_time)
+    # print(remain_time)
 
     if remain_time > 0 :
         return {'REMAINING_TIME_OF_SPELL': str(remain_time)}
@@ -367,7 +367,7 @@ def RecommendItemAll(**kwargs):
         tmp.append(item.select(".champion-overview__stats.champion-overview__stats--win.champion-overview__border")[
                        0].text.split('\n')[1])  # get item winning rate
         item_recommend_list.append(tmp)
-    print(item_recommend_list)
+    # print(item_recommend_list)
     return {'RECOMMENDED_ITEM_1ST': Eng2Kor(item_recommend_list[2][0], 'item'), 'RECOMMENDED_ITEM_2ST': Eng2Kor(item_recommend_list[2][1], 'item'),'RECOMMENDED_ITEM_3ST':  Eng2Kor(item_recommend_list[2][2], 'item')}
 
 
@@ -384,7 +384,7 @@ def ChamionSummary(champion_name, lane=''):
     champion_lanes_list = {}
     for i, j in zip(lanes, lane_rates):
         champion_lanes_list[i] = float(j[:-1])
-    print(champion_lanes_list)
+    # print(champion_lanes_list)
 
     # Get recommended spells
     spells = champ_soup.select(".champion-stats__list__item img.tip")
@@ -399,14 +399,14 @@ def ChamionSummary(champion_name, lane=''):
             tmp.append(spells_winning_rate[int(idx / 2) - 1].text)
             spell_recommend.append(tmp)
             tmp = []
-    print(spell_recommend)
+    # print(spell_recommend)
 
     # Get a skill-mastery [w, q, e]
     skill_mastery = champ_soup.select(".champion-stats__list__item span")
     skill_mastery_recommend = []
     for skill in skill_mastery:
         skill_mastery_recommend.append(skill.text)
-    print(skill_mastery_recommend)
+    # print(skill_mastery_recommend)
     # Get a skill tree
     skill_tree = champ_soup.select(".champion-skill-build__table td")
     skill_tree_recommend = []
@@ -414,7 +414,7 @@ def ChamionSummary(champion_name, lane=''):
         skill_tree_recommend.append(skill.text.strip())
     while len(skill_tree_recommend) != 18:
         skill_tree_recommend.append(skill_tree_recommend[-1])
-    print(skill_tree_recommend)
+    # print(skill_tree_recommend)
     # Get a rune and winning rate
     runes = champ_soup.select(".champion-stats-summary-rune__name")
     rune_rates = champ_soup.select(".champion-stats-summary-rune__rate span")
@@ -423,7 +423,7 @@ def ChamionSummary(champion_name, lane=''):
     recommend_rune_list = []
     for rune, rune_rate in zip(runes, rune_rates):
         recommend_rune_list.append([rune.text, rune_rate])
-    print(recommend_rune_list)
+    # print(recommend_rune_list)
     # Get a detailed tree
     rune_detail = champ_soup.select(".perk-page__item.perk-page__item--active img")
     rune_detail_winning_rate = champ_soup.select(".champion-overview__stats.champion-overview__stats--pick strong")
@@ -450,7 +450,7 @@ def ChamionSummary(champion_name, lane=''):
         tmp.append(item.select(".champion-overview__stats.champion-overview__stats--win.champion-overview__border")[
                        0].text.split('\n')[1])  # get item winning rate
         item_recommend_list.append(tmp)
-    print(item_recommend_list)
+    # print(item_recommend_list)
 
 
 

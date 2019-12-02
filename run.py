@@ -27,7 +27,7 @@ current_game = Game(player_name, current_game_info)
 def post():
 	global current_game
 
-	print(current_game.players_spell_used_time)
+	#print(current_game.players_spell_used_time)
 	query = request.json
 	#response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
 	#current_game_info_query = response.json()
@@ -35,7 +35,7 @@ def post():
 	# 	pass
 	# else:
 	# 	current_game = Game(player_name, current_game_info_query)
-	print(query)
+	#print(query)
 
 	return json.dumps(answer(query, current_game), ensure_ascii=False, indent=4)
 	#flag, response, current_game_new = answer(query, current_game)
