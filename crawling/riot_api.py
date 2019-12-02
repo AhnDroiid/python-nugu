@@ -224,7 +224,7 @@ def RecommendSkillAll(**kwargs):
 def RecommendItemSpecific(**kwargs):
 
     champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_ITEM'] , 'champion')
-    core_num = kwargs['NAME_NUMBER_ITEM_CORE'][:-2]
+    core_num = int(kwargs['NAME_NUMBER_ITEM_CORE'][:-2])
 
     champ_stats_url = config.get_champ_stat_url(champion_name)
     search = requests.get(champ_stats_url)
