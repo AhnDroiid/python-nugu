@@ -27,6 +27,7 @@ current_game = Game(player_name, current_game_info)
 def post():
 	global current_game
 
+	print(current_game.players_spell_used_time)
 	query = request.json
 	#response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
 	#current_game_info_query = response.json()

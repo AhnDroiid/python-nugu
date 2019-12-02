@@ -279,6 +279,7 @@ def RecordSpellTime(**kwargs):   # write_used_spell action,  RECORD TIME WHEN SP
     now_time_in_second = now_time.hour * 3600 + now_time.minute * 60 + now_time.second
     current_game.players_spell_used_time[champion_name][spell_name] = now_time_in_second
 
+
 def AnswerSpellRemainingTime(**kwargs):    # answer specific champion spell time
     current_game = kwargs['current_game']
     champion_name = Kor2Eng(kwargs['NAME_CHAMPION_FOR_SPELL'] , 'champion')
