@@ -138,7 +138,7 @@ def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     print(currGame.players_champion[return_idx][1])
     return {'OPPONENT_CHAMPION_TEAR': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_TEAR'],
             'OPPONENT_CHAMPION_WINNING_RATE': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_WINNING_RATE'],
-            'OPPONENT_CAUTION_CHAMPION': '애쉬'}
+            'OPPONENT_CAUTION_CHAMPION': currGame.players_champion[return_idx][1]}
     # result = {'OPPONENT_CHAMPION_TEAR': [], 'OPPONENT_CHAMPION_WINNING_RATE': []}
     # for player in player_name_list:
     #     spec = player_summary(player)
