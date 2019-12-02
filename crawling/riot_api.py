@@ -111,12 +111,12 @@ def player_summary(player_name):
 
 
 
-def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion   ###NOT WORKING
+def Total_PlayerSummary(**kwargs):  #  answer.opponent.caution_champion
     currGame = kwargs['current_game']
     temp_lst = [player_summary['OPPONENT_CHAMPION_WINNING_RATE'] for player_summary in currGame.players_summary]
     return_idx = temp_lst.index(max(temp_lst))
     return {'OPPONENT_CHAMPION_TEAR': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_TEAR'],
-            'OPPONENT_CHAMPION_WINNING_RATE': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_WINNING_RATE'],}
+            'OPPONENT_CHAMPION_WINNING_RATE': currGame.players_summary[return_idx]['OPPONENT_CHAMPION_WINNING_RATE']}
     # result = {'OPPONENT_CHAMPION_TEAR': [], 'OPPONENT_CHAMPION_WINNING_RATE': []}
     # for player in player_name_list:
     #     spec = player_summary(player)
