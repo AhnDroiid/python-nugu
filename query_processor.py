@@ -15,7 +15,7 @@ query_config =[
      'function' : AnswerSpellRemainingTime
 
      },
-	{'action_name': 'answer.spell.specific_champion.wo_specific_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL', 'NAME_SPELL'], 'backend':['SPELL_TIME1', 'REMAINING_TIME1', 'SPELL_TIME2', 'REMAINING_TIME2'],
+	{'action_name': 'answer.spell.specific_champion.wo_specific_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL', 'NAME_SPELL'], 'backend':['SPELL_NAME1', 'REMAINING_TIME1', 'SPELL_NAME2', 'REMAINING_TIME2'],
      'function' : AnswerSpellRemainingTimeAll
      },
 
