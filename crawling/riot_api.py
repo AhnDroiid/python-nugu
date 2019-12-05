@@ -198,7 +198,7 @@ def RecommendChampionFromChampion(**kwargs):
     return {'RECOMMENDED_CHAMPION': Eng2Kor(most_counter, 'champion')}
 
 def CheckFriendStatus(**kwarg):
-    if kwarg['NAME_FRIEND'] is in config.friend.keys():
+    if kwarg['NAME_FRIEND'] in config.friend.keys():
         search = requests.get(OPGG_USER_URL + config.friend[kwarg['NAME_FRIEND']])
         html = search.text
         user_soup = BeautifulSoup(html, 'html.parser')

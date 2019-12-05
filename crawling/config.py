@@ -7,7 +7,7 @@ import os
 class Config:
     def __init__(self):
 
-        self.api_key = 'RGAPI-f438967e-cb16-431b-bdb4-c4804b049851'
+        self.api_key = 'RGAPI-1f07660f-4502-4cc3-9d27-c81a6530e7a7'
         self.summoner_name_url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
         self.tier_url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/"
         self.current_game_url = "https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/"
@@ -18,7 +18,7 @@ class Config:
 
         reader = csv.reader(open('./crawling/champion_list.csv', 'r'))
 
-        self.friend = {'민수': 'cinnamon12', '동현': '딸기맛영일', '찬우': 'Hidden in bush'}
+        self.friend = {'민수': 'cinnamon12', '동현': '딸기맛영일', '찬우': 'Hidden in bush', '중국': 'Fa ryan'}
         self.champion_list = {}
         for row in reader:
             if len(row) != 3: continue
