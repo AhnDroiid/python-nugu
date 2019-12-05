@@ -17,6 +17,8 @@ class Config:
         self.LaneRecommendByChamp = {}
 
         reader = csv.reader(open('./crawling/champion_list.csv', 'r'))
+
+        self.friend = {'민수': 'cinnamon12', '동현': '딸기맛영일', '찬우': 'Hidden in bush'}
         self.champion_list = {}
         for row in reader:
             if len(row) != 3: continue
@@ -56,6 +58,7 @@ class Config:
         if len(champion_lanes_list) == 0 : return 'Top'
         return list(champion_lanes_list.items())[
             (list(champion_lanes_list.values())).index(max(champion_lanes_list.values()))]
+
     def make_RecommendLaneFromChamping_csv(self):
 
         if 'recommend.csv' in os.listdir('.'):

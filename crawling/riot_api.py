@@ -197,6 +197,18 @@ def RecommendChampionFromChampion(**kwargs):
     # print(Eng2Kor(counter_list[0][0], 'champion'))
     return {'RECOMMENDED_CHAMPION': Eng2Kor(most_counter, 'champion')}
 
+def CheckFriendStatus(**kwarg):
+    if kwarg['NAME_FRIEND'] is in config.friend.keys():
+        search = requests.get(OPGG_USER_URL + config.friend[kwarg['NAME_FRIEND']])
+        html = search.text
+        user_soup = BeautifulSoup(html, 'html.parser')
+        live = user_soup.select(".SpectatorError")
+        if len(live) == 0:  return {'BOOL_LOG_IN': '이 아닙'}
+        else: return {'BOOL_LOG_IN': '입'}
+    else:
+        return {'BOOL_LOG_IN': '인지 모르고, 당신의 친구가 아닙'}
+
+
 def RecommendChampionFromLane(**kwargs):
     lane_name = Kor2Eng(kwargs['NAME_LANE'], 'lane')
     lane_index = list(config.LaneRecommendByChamp.values()).index(lane_name)

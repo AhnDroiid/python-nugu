@@ -23,6 +23,10 @@ query_config =[
     #  'function' : A
     #  },
 
+     {'action_name': 'answer.friend', 'utterance': ['NAME_FRIEND'], 'backend': ['BOOL_LOG_IN'],
+     'function' : CheckFriendStatus
+     },
+
 	{'action_name': 'recommend_champion_lane', 'utterance': ['NAME_OPPONENT_CHAMPION', 'NAME_LANE'], 'backend': ['RECOMMENDED_CHAMPION'],
      'function' : RecommendChampionFromLane
      },
