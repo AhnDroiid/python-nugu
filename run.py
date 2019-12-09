@@ -30,6 +30,10 @@ def post():
 			response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
 			if response.status_code == 404:
 				print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
+				return json.dumps({
+            "version": "2.0",
+            "resultCode": "Error"
+        })
 
 			if current_game is None:
 				print("CURRENT GAME IS EMPTY")
