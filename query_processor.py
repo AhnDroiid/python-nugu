@@ -102,7 +102,7 @@ def game_not_needed_answer(query):
         result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
     if actionName == "play.music":
         print(return_from_function(**args))
-        result_dict['directives'] = return_from_function(**args)
+        result_dict['directives'] = return_from_function
     print(result_dict)
     return result_dict
 
