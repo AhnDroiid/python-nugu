@@ -31,9 +31,9 @@ def post():
 			if response.status_code == 404:
 				print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
 				return json.dumps({
-            "version": "2.0",
-            "resultCode": "Error"
-        })
+								"version": "2.0",
+								"resultCode": "Error"
+        						 })
 
 			if current_game is None:
 				print("CURRENT GAME IS EMPTY")
@@ -47,7 +47,7 @@ def post():
 			print("CURRENT GAME DATA IS NOT NEEDED")
 			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
 
-		else:
+		elif query_dat['action_name'] != actionName
 			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
 
 app.run(host='0.0.0.0', port=3389)
