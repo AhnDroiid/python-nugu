@@ -23,7 +23,7 @@ query_config =[
     #  'function' : A
     #  },
 
-     {'action_name': 'answer.friend', 'utterance': ['NAME_FRIEND'], 'backend': ['BOOL_LOG_IN'],
+     {'action_name': 'answer.friend', 'utterance': ['NAME_FRIEND'], 'backend': ['STATUS_LOG_IN'],
      'function' : CheckFriendStatus, 'need' : False
      },
 

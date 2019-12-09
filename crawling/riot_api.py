@@ -225,10 +225,10 @@ def CheckFriendStatus(**kwarg):
         html = search.text
         user_soup = BeautifulSoup(html, 'html.parser')
         live = user_soup.select(".SpectatorError")
-        if len(live) == 0:  return {'BOOL_LOG_IN': '이 아닙'}
-        else: return {'BOOL_LOG_IN': '입'}
+        if len(live) == 0:  return {'STATUS_LOG_IN': 2}
+        else: return {'STATUS_LOG_IN': 1}
     else:
-        return {'BOOL_LOG_IN': '인지 모르고, 당신의 친구가 아닙'}
+        return {'STATUS_LOG_IN': 3}
 
 
 def RecommendChampionFromLane(**kwargs):
