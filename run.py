@@ -23,7 +23,7 @@ def post():
 	actionName = query['action']['actionName']
 
 	for query_dat in query_config:
-		print(query_dat)
+		#print(query_dat)
 		if query_dat['action_name'] == actionName and query_dat['need'] == True:
 			print("CURRENT GAME DATA IS NEEDED")
 			## current game!
