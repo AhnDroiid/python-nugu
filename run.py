@@ -18,22 +18,28 @@ def post():
 	global current_game
 	query = request.json
 
+	print(query)
+
 	actionName = query['action']['actionName']
 
 	for query in query_config:
 		if query['action_name'] == actionName and query['need'] == True:
-
+			print("CURRENT GAME DATA IS NEEDED")
 			## current game!
 			response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
 			if response.status_code == 404:
 				print('{}님은 현재 게임 중이 아닙니다.'.format(player_name))
 
 			if current_game is None:
+				print("CURRENT GAME IS EMPTY")
+				print("GAME IS INITIALIZED")
+				print("PLEASE WAIT...")
 				current_game_info = response.json()
 				current_game = Game(player_name, current_game_info)
 			return json.dumps(game_needed_answer(query, current_game), ensure_ascii=False, indent=4)
 
 		elif query['action_name'] == actionName and query['need'] == False:
+			print("CURRENT GAME DATA IS NOT NEEDED")
 			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
 
 
