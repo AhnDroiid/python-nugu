@@ -43,7 +43,8 @@ def post():
 			print("CURRENT GAME DATA IS NOT NEEDED")
 			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
 
-
+		else:
+			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
 
 app.run(host='0.0.0.0', port=3389)
 
