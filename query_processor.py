@@ -58,7 +58,15 @@ query_config =[
 
 	{'action_name': 'write.used_spell', 'utterance': ['NAME_CHAMPION_FOR_SPELL_RECORD', 'NAME_USED_SPELL'], 'backend': [],
      'function' : RecordSpellTime, 'need' : True
+    },
+
+    {'action_name': 'play.music', 'utterance': ['NAME_CHAMPION_FOR_SPELL_RECORD', 'NAME_USED_SPELL'], 'backend': [],
+     'function' : PlayMusic, 'need': False
     }
+
+    # {'action_name': 'stop.music', 'utterance': ['NAME_CHAMPION_FOR_SPELL_RECORD', 'NAME_USED_SPELL'], 'backend': [],
+    #  'function' : StopMusic, 'need' : False
+    # }
 ]
 
 def find_function_in_query(action):

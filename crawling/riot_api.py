@@ -20,6 +20,27 @@ CHAMP_MASTERY = config.champ_mastery
 OPGG_USER_URL = config.opgg_user_url
 
 
+
+def PlayMusic(**kwargs):
+    return  {
+    'type': 'AudioPlayer.Play',
+    'audioItem': {
+      'stream': {
+        'url': 'https://www.youtube.com/watch?v=nRrXhgEqJMI&t=1913s',
+        'offsetInMilliseconds': 0,
+        'token': 'OK',
+        'expectedPreviousToken': 'expectedPreviousToken',
+      }
+    }
+  }
+
+# def StopMusic(**kwargs):
+#
+
+
+
+
+
 def Eng2Kor(name, arg):
     if arg == 'item':
         return config.item_list[name]
@@ -474,7 +495,9 @@ def ChamionSummary(champion_name, lane=''):
 
 #print(RecommendChampionFromChampion(**args))# print(RecommendSkillAll(**args))
 # # #
-# player_name = "jgggggg"
+
+#
+# player_name = "real gankster"
 #
 #
 #
@@ -494,6 +517,10 @@ def ChamionSummary(champion_name, lane=''):
 # current_game_info = response.json()
 #
 # current_game = Game(player_name, current_game_info)
+#
+# print(current_game.players_rune_tree)
+#
+
 #
 #
 #
