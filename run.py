@@ -49,7 +49,10 @@ def post():
 
 		elif query_dat['action_name'] != actionName:
 			print(query_dat['action_name'],  actionName)
-			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
+			return json.dumps({
+				"version": "2.0",
+				"resultCode": "OK"
+			})
 
 app.run(host='0.0.0.0', port=3389)
 
