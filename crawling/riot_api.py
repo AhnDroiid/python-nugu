@@ -22,7 +22,7 @@ OPGG_USER_URL = config.opgg_user_url
 
 
 def PlayMusic(**kwargs):
-    return  {
+    return  [{
     'type': 'AudioPlayer.Play',
     'audioItem': {
       'stream': {
@@ -32,7 +32,7 @@ def PlayMusic(**kwargs):
         'expectedPreviousToken': 'expectedPreviousToken',
       }
     }
-  }
+  }]
 
 # def StopMusic(**kwargs):
 #
