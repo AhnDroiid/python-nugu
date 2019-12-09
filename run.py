@@ -22,8 +22,9 @@ def post():
 
 	actionName = query['action']['actionName']
 
-	for query in query_config:
-		if query['action_name'] == actionName and query['need'] == True:
+	for query_dat in query_config:
+
+		if query_dat['action_name'] == actionName and query_dat['need'] == True:
 			print("CURRENT GAME DATA IS NEEDED")
 			## current game!
 			response = requests.get(CURRENT_GAME_URL + player_id + '?api_key=' + API_KEY)
@@ -38,7 +39,7 @@ def post():
 				current_game = Game(player_name, current_game_info)
 			return json.dumps(game_needed_answer(query, current_game), ensure_ascii=False, indent=4)
 
-		elif query['action_name'] == actionName and query['need'] == False:
+		elif query_dat['action_name'] == actionName and query_dat['need'] == False:
 			print("CURRENT GAME DATA IS NOT NEEDED")
 			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
 
