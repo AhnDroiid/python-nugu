@@ -60,7 +60,7 @@ query_config =[
      'function' : RecordSpellTime, 'need' : True
     },
 
-    {'action_name': 'play.music', 'utterance': ['NAME_CHAMPION_FOR_SPELL_RECORD', 'NAME_USED_SPELL'], 'backend': [],
+    {'action_name': 'play.music', 'utterance': [], 'backend': [],
      'function' : PlayMusic, 'need': False
     }
 
@@ -85,7 +85,7 @@ def game_not_needed_answer(query):
             args[keys] = query['action']['parameters'][keys]['value']
 
     if idx == -1:
-        # print("idx is -1")
+        print("idx is -1")
         return {'version': '2.0',
                 'resultCode': 'OK',
                 'output': {
@@ -114,7 +114,7 @@ def game_needed_answer(query, current_game):
             args[keys] = query['action']['parameters'][keys]['value']
 
     if idx == -1:
-        #print("idx is -1")
+        print("idx is -1")
         return {'version': '2.0',
 		'resultCode': 'OK',
 		'output': {
