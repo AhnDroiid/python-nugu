@@ -47,7 +47,7 @@ def post():
 			print("CURRENT GAME DATA IS NOT NEEDED")
 			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
 
-		elif query_dat['action_name'] != actionName
+		elif query_dat['action_name'] != actionName:
 			return json.dumps(game_not_needed_answer(query), ensure_ascii=False, indent=4)
 
 app.run(host='0.0.0.0', port=3389)
