@@ -92,7 +92,7 @@ def game_not_needed_answer(query):
 
     for backend_parameter in query_config[idx]['backend']:
         result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
-    # print(result_dict)
+    print(result_dict)
     return result_dict
 
 
@@ -121,7 +121,7 @@ def game_needed_answer(query, current_game):
 
     for backend_parameter in query_config[idx]['backend']:
         result_dict['output'][backend_parameter] = return_from_function[backend_parameter]
-    #print(result_dict)
+    print(result_dict)
     return result_dict
 
     # if actionName == 'write.used_spell':
